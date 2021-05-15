@@ -2,17 +2,15 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Home from './containers/home';
+import Home from './containers/Home';
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <div className="container">      
-          <Switch>
-            <Route path = "/" exact component = {Home}></Route>
-          </Switch>      
-        </div>
+      <Router>      
+        <Switch>
+          <Route path = "/" exact component = {Home}></Route>
+        </Switch>      
       </Router>
     </div>
 
