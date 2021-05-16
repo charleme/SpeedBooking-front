@@ -16,7 +16,7 @@ export default class UserList extends React.Component<any, IState> {
             username: '',
             email: '',
             password: '',
-            genres: '',
+            genres: ''
         }
         this.changeUserNameHandler = this.changeUserNameHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
