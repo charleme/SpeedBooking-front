@@ -21,6 +21,10 @@ class UserHelpers{
         return axios.put(USER_API_BASE_URL + "/updateUser/" + userId, user)
     }
 
+    deleteUser(userId: number){
+        return axios.delete(USER_API_BASE_URL + "/deleteUser/" + userId)
+    }
+
 }
 
 export default new UserHelpers()
