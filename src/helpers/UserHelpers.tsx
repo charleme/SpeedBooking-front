@@ -6,7 +6,7 @@ const USER_API_BASE_URL = "http://localhost:8080/api/user"
 
 class UserHelpers{
     getAllUsers(){
-        return axios.get(USER_API_BASE_URL + "/users");
+        return axios.get(USER_API_BASE_URL + "/allUser");
     }
 
     createUser(user: any){
