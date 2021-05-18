@@ -24,19 +24,19 @@ class BookHelpers{
         return axios.get(BOOK_API_BASE_URL + FIND_BOOK + bookId)
     }
 
-    updateBook(book: IBook, bookId: number){
+    updateBook(book: IBook, bookId: number): Promise<AxiosResponse<any>>{
         return axios.put(BOOK_API_BASE_URL + UPDATE_BOOK + bookId, book)
     }
 
-    deleteBook(bookId: number){
+    deleteBook(bookId: number): Promise<AxiosResponse<any>>{
         return axios.delete(BOOK_API_BASE_URL + DELETE_BOOK + bookId)
     }
 
-    likeBook(bookId: number, userId: number){
+    likeBook(bookId: number, userId: number): Promise<AxiosResponse<any>>{
         return axios.put(BOOK_API_BASE_URL + LIKE_BOOK + bookId, userId)
     }
 
-    dislikeBook(bookId: number, userId: number){
+    dislikeBook(bookId: number, userId: number): Promise<AxiosResponse<any>>{
         return axios.put(BOOK_API_BASE_URL + DISLIKE_BOOK + bookId, userId)
     }
 }
