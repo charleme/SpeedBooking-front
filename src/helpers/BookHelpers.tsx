@@ -2,7 +2,7 @@ import React from "react";
 import axios, { AxiosResponse } from "axios";
 import IBook from "../data_interface/IBook";
 
-const BOOK_API_BASE_URL = "http://localhost:8080/api/v1/book";
+const BOOK_API_BASE_URL = "http://localhost:8080/api/book";
 const ALL_BOOK = "/books"
 const ADD_BOOK = "/addBook";
 const FIND_BOOK = "/findBook/";
