@@ -17,7 +17,7 @@ class BookHelpers{
     }
 
     createBook(book: IBook){
-        return axios.post(BOOK_API_BASE_URL + ADD_BOOK, {book : book})
+        return axios.post(BOOK_API_BASE_URL + ADD_BOOK, book)
     }
 
     getBookById(bookId: number): Promise<AxiosResponse<IBook>>{
