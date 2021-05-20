@@ -6,12 +6,12 @@ const USER_API_BASE_URL = "http://localhost:8080/api/user"
 
 
 class UserHelpers{
-    getAllUsers():  Promise<AxiosResponse<IUser>>{
+    getAllUsers(): Promise<AxiosResponse<IUser>>{
         return axios.get(USER_API_BASE_URL + "/allUser");
     }
 
-    createUser(user: IUser): Promise<AxiosResponse<any>>{
-        return axios.post(USER_API_BASE_URL + "/addUser", user)
+    createUser(user: IUser, list: string[]): Promise<AxiosResponse<any>> {
+        return axios.post(USER_API_BASE_URL + "/addUser", {user, list})
     }
 
     getUserById(userId: number): Promise<AxiosResponse<IUser>>{
