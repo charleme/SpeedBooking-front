@@ -20,11 +20,13 @@ const fakeUser:IUser = {
 
 const fakeBook: IBook = {
     titleBook: "FakeBook",
-    summaryBook: "summary",
     language: "francais",
+    imageBook: "https://m.media-amazon.com/images/I/41gUSz1Cn2L.jpg",
+    summaryBook: "summary",
+    firstChapter: "",
     audienceTag: "{\"Angst\": 50, \"Crime\": 77, \"Drama\": 88, \"Humor\": 86, \"Quest\": 133, \"Family\": 60, \"Horror\": 27, \"Parody\": 39, \"Poetry\": 65, \"Sci-fiv\": 15, \"Fantasy\": 20, \"Mystery\": 45, \"Romance\": 263, \"Tragedy\": 13, \"Western\": 55, \"Survival\": 84, \"Suspense\": 67, \"Adventure\": 30, \"Spiritual\": 27, \"Friendship\": 69, \"Hurt/Comfort\": 92, \"Supernatural\": 49, \"Homosexuality\": 107}",
     links: "{\"Amazon\": \"https://www.amazon.fr/Outlaws-Lena-Shartiaud/dp/2375210794\"}",
-    imageBook: "https://m.media-amazon.com/images/I/41gUSz1Cn2L.jpg"
+    id_author: 1    
 }
 
 const request = UserHelpers.deleteUser;
@@ -36,7 +38,8 @@ class RequestTest extends Component<any, IState> {
         this.launchRequest.bind(this);
     }
 
-    launchRequest =async () => {
+    launchRequest = (e: any) => {
+        e.preventDefault()
         const component = this;
 
         BookHelpers.createBook(fakeBook).then(function (response){

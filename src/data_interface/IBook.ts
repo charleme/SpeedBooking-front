@@ -9,9 +9,10 @@ export default interface IBook{
     imageBook: String;
     summaryBook: String;
     firstChapter?: String; //Optionnal because big data so some request don't need to send this data
-    audienceTag: String;
+    audienceTag: String;// Record<string, number>
     links: String;
     author?: IUser;
     readers?: IUserBook[];
     bookGenres?: IGenreBook[];
+    id_author:number;
 }

@@ -16,7 +16,7 @@ class BookHelpers{
         return axios.get(BOOK_API_BASE_URL + ALL_BOOK);
     }
 
-    createBook(book: IBook){
+    createBook(book:any){
         return axios.post(BOOK_API_BASE_URL + ADD_BOOK, book)
     }
 
