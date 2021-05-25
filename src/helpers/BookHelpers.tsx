@@ -1,6 +1,8 @@
 import React from "react";
 import axios, { AxiosResponse } from "axios";
 import IBook from "../data_interface/IBook";
+import { IDelete } from "../data_interface/IResponse";
+import { IGenreWithScore } from "../data_interface/IGenre";
 
 const BOOK_API_BASE_URL = "http://localhost:8080/api/book";
 const ALL_BOOK = "/books"
@@ -13,35 +15,83 @@ const DISLIKE_BOOK = "/dislikeBook/";
 const GENRE_WITH_SCORE = "/bookGenresWithScore/";
 
 class BookHelpers{
+    /**
+     * get all books
+     * @returns all items in book table
+     */
     getAllBooks(): Promise<AxiosResponse<IBook[]>>{
         return axios.get(BOOK_API_BASE_URL + ALL_BOOK);
     }
 
-    createBook(book:IBook): Promise<AxiosResponse<IBook[]>>{
+    /**
+     * create an item in book table
+     * 
+     * @param book book which will be created
+     * @returns created book
+     */
+    createBook(book:IBook): Promise<AxiosResponse<IBook>>{
         return axios.post(BOOK_API_BASE_URL + ADD_BOOK, book);
     }
 
+    /**
+     * get item of book table with id equal to bookId
+     * 
+     * @param bookId id of the book
+     * @returns book the id equal to bookId
+     */
     getBookById(bookId: number): Promise<AxiosResponse<IBook>>{
         return axios.get(BOOK_API_BASE_URL + FIND_BOOK + bookId);
     }
 
-    updateBook(book: IBook): Promise<AxiosResponse<any>>{
+    /**
+     * update a book item
+     * 
+     * @param book book information (must contain idBook)
+     * @returns updated book
+     */
+    updateBook(book: IBook): Promise<AxiosResponse<IBook>>{
         return axios.put(BOOK_API_BASE_URL + UPDATE_BOOK, book);
     }
 
-    deleteBook(bookId: number): Promise<AxiosResponse<any>>{
+    /**
+     * delete book item with the id equal to bookId
+     * 
+     * @param bookId id of the book
+     * @returns data.deleted = true if delete succeed
+     */
+    deleteBook(bookId: number): Promise<AxiosResponse<IDelete>>{
         return axios.delete(BOOK_API_BASE_URL + DELETE_BOOK + bookId);
     }
 
-    likeBook(bookId: number, userId: number): Promise<AxiosResponse<any>>{
+    /**
+     * update audience tag of a book (which have an id equal to bookId) to take into account the like
+     * 
+     * @param bookId id of the book
+     * @param userId id of the user
+     * @returns audience tag updated
+     */
+    likeBook(bookId: number, userId: number): Promise<AxiosResponse<Record<string, number>>>{
         return axios.put(BOOK_API_BASE_URL + LIKE_BOOK + bookId + "&"+ userId);
     }
 
-    dislikeBook(bookId: number, userId: number): Promise<AxiosResponse<any>>{
+    /**
+     * update audience tag of a book (which have an id equal to bookId) to take into account the dislike
+     * 
+     * @param bookId id of the book
+     * @param userId id of the user
+     * @returns audience tag updated
+     */
+    dislikeBook(bookId: number, userId: number): Promise<AxiosResponse<Record<string, number>>>{
         return axios.put(BOOK_API_BASE_URL + DISLIKE_BOOK + bookId +"&"+ userId);
     }
 
-    genreWithScore(bookId:number):Promise<AxiosResponse<any>>{
+    /**
+     * get all the genre associated to the book
+     * 
+     * @param bookId id of the book
+     * @returns all genre associated to the book with the corresponding score
+     */
+    genreWithScore(bookId:number):Promise<AxiosResponse<IGenreWithScore>>{
         return axios.get(BOOK_API_BASE_URL + GENRE_WITH_SCORE + bookId);
     }
 }
