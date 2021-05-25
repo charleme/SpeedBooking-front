@@ -6,8 +6,6 @@ export default interface IUser{
     username: string;
     email: string;
     password: string;
-    genres?: string;
+    genres?: Record<string, number>;
     languages: string;
-    books?: IBook[];
-    booksRead?: IUserBook[];
 }
