@@ -11,7 +11,11 @@ class UserBookHelpers{
     }
 
     updateProgress(idUser: number, idBook: number, progressValue: number): Promise<AxiosResponse<any>>{
-        return axios.post(USER_BOOK_API_BASE_URL + "/updateProgress/" + idUser + "&" + idBook + "&" + progressValue);
+        return axios.put(USER_BOOK_API_BASE_URL + "/updateProgress/" + idUser + "&" + idBook + "&" + progressValue);
+    }
+
+    createUserBook(idUser: number, idBook: number): Promise<AxiosResponse<any>>{
+        return axios.post(USER_BOOK_API_BASE_URL + "/createUserBook/" + idUser + "&" + idBook);
     }
 }
 
