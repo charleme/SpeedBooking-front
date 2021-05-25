@@ -20,8 +20,8 @@ class UserHelpers{
         return axios.get(USER_API_BASE_URL + "/findUser/" + userId);
     }
 
-    updateUser(user: IUser, userId: number): Promise<AxiosResponse<IUser>>{
-        return axios.put(USER_API_BASE_URL + "/updateUser/" + userId, user);
+    updateUser(user: IUser): Promise<AxiosResponse<IUser>>{
+        return axios.put(USER_API_BASE_URL + "/updateUser", user);
     }
 
     deleteUser(userId: number): Promise<AxiosResponse<IDelete>>{
