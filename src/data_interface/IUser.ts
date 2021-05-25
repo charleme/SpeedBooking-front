@@ -2,7 +2,7 @@ import IBook from "./IBook";
 import IUserBook from "./IUserBook";
 
 export default interface IUser{
-    id_user?: number;
+    idUser?: number;
     username: string;
     email: string;
     password: string;
