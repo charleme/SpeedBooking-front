@@ -14,19 +14,19 @@ const fakeUser:IUser = {
     languages: "fr-FR",
     password: "test",
     username: "fakeName",
-    genres: "{\"Angst\": 30, \"Crime\": 70, \"Drama\": 88, \"Humor\": 80, \"Quest\": 48, \"Family\": 10, \"Horror\": 2, \"Parody\": 40, \"Poetry\": 95, \"Sci-fi\": 60, \"Fantasy\": 40, \"Mystery\": 50, \"Romance\": 120, \"Tragedy\": 13, \"Western\": 55, \"Survival\": 77, \"Suspense\": 67, \"Adventure\": 90, \"Spiritual\": 21, \"Friendship\": 60, \"Hurt/Comfort\": 20, \"Supernatural\": 49, \"Homosexuality\": 107}",
+    genres: {"Angst": 30, "Crime": 70, "Drama": 88, "Humor": 80, "Quest": 48, "Family": 10, "Horror": 2, "Parody": 40, "Poetry": 95, "Sci-fi": 60, "Fantasy": 40, "Mystery": 50, "Romance": 120, "Tragedy": 13, "Western": 55, "Survival": 77, "Suspense": 67, "Adventure": 90, "Spiritual": 21, "Friendship": 60, "Hurt/Comfort": 20, "Supernatural": 49, "Homosexuality": 107},
 
 } 
 
 const fakeBook: IBook = {
-    idBook: 8,
+    idBook: 10,
     titleBook: "FakeBook", 
     language: "test francais",
     imageBook: "https://m.testmedia-amazon.com/images/I/41gUSz1Cn2L.jpg",
     summaryBook: " test summary",
     firstChapter: "test test", 
-    audienceTag: "{\"Angst\": 60, \"Crime\": 77, \"Drama\": 88, \"Humor\": 86, \"Quest\": 133, \"Family\": 60, \"Horror\": 27, \"Parody\": 39, \"Poetry\": 65, \"Sci-fiv\": 15, \"Fantasy\": 20, \"Mystery\": 45, \"Romance\": 263, \"Tragedy\": 13, \"Western\": 55, \"Survival\": 84, \"Suspense\": 67, \"Adventure\": 30, \"Spiritual\": 27, \"Friendship\": 69, \"Hurt/Comfort\": 92, \"Supernatural\": 49, \"Homosexuality\": 107}",
-    links: "{\"testAmazon\": \"https://www.testamazon.fr/Outlaws-Lena-Shartiaud/dp/2375210794\"}",
+    audienceTag: {"Angst": 70, "Crime": 77, "Drama": 88, "Humor": 86, "Quest": 133, "Family": 60, "Horror": 27, "Parody": 39, "Poetry": 65, "Sci-fiv": 15, "Fantasy": 20, "Mystery": 45, "Romance": 263, "Tragedy": 13, "Western": 55, "Survival": 84, "Suspense": 67, "Adventure": 30, "Spiritual": 27, "Friendship": 69, "Hurt/Comfort": 92, "Supernatural": 49, "Homosexuality": 107},
+    links: {"testAmazon": "https://www.testamazon.fr/Outlaws-Lena-Shartiaud/dp/2375210794"},
     id_author: 2    
 }
 
@@ -44,7 +44,7 @@ class RequestTest extends Component<any, IState> {
         e.preventDefault()
         const component = this;
 
-        BookHelpers.genreWithScore(1).then(function (response){
+        UserHelpers.getUserReadBooks(1).then(function (response){
             const jsxResponse: JSX.Element = ( 
                         <div>
                             <div>
@@ -78,12 +78,13 @@ class RequestTest extends Component<any, IState> {
     render() {
         return (
             <Container>
+                <Typography variant="h2">
+                    Request test
+                </Typography>
                 <Button onClick={this.launchRequest} variant="contained" color="primary">
                     Launch request
                 </Button>
-                <Typography variant="h5">
-                    To test a request edit request constant value (l10) and request parameter (l22)
-                </Typography>
+                
                 <Typography variant="h6">
                     {this.state.requestResponse}
                 </Typography>
