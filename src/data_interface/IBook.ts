@@ -13,3 +13,7 @@ export default interface IBook{
     links: Record<string, string>;
     id_author?:number;
 }
+
+export interface IBookWithProgress extends IBook{
+    progress: number;
+}
