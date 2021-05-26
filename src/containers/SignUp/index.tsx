@@ -9,6 +9,7 @@ import {colors} from "../../default_color";
 import {Autocomplete} from "@material-ui/lab";
 import * as locales from '@material-ui/core/locale';
 import { genres, IGenre } from "../../genres";
+import { palette } from '@material-ui/system';
 
 interface IState{
     id_user?: number;
