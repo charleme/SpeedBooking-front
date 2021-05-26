@@ -1,95 +1,95 @@
 export const genres:IGenre[] = [
     {
         idGenre: 1,
-        "nameGenre": "Adventure"
+        nameGenre: "Adventure"
     },
     {
         idGenre: 2,
-        "nameGenre": "Angst"
+        nameGenre: "Angst"
     },
     {
         idGenre: 3,
-        "nameGenre": "Crime"
+        nameGenre: "Crime"
     },
     {
         idGenre: 4,
-        "nameGenre": "Family"
+        nameGenre: "Family"
     },
     {
         idGenre: 5,
-        "nameGenre": "Fantasy"
+        nameGenre: "Fantasy"
     },
     {
         idGenre: 6,
-        "nameGenre": "Friendship"
+        nameGenre: "Friendship"
     },
     {
         idGenre: 7,
-        "nameGenre": "Horror"
+        nameGenre: "Horror"
     },
     {
         idGenre: 8,
-        "nameGenre": "Humor"
+        nameGenre: "Humor"
     },
     {
         idGenre: 9,
-        "nameGenre": "Hurt/Comfort"
+        nameGenre: "Hurt/Comfort"
     },
     {
         idGenre: 10,
-        "nameGenre": "Mystery"
+        nameGenre: "Mystery"
     },
     {
         idGenre: 11,
-        "nameGenre": "Parody"
+        nameGenre: "Parody"
     },
     {
         idGenre: 12,
-        "nameGenre": "Poetry"
+        nameGenre: "Poetry"
     },
     {
         idGenre: 13,
-        "nameGenre": "Romance"
+        nameGenre: "Romance"
     },
     {
         idGenre: 14,
-        "nameGenre": "Sci-fi"
+        nameGenre: "Sci-fi"
     },
     {
         idGenre: 15,
-        "nameGenre": "Spiritual"
+        nameGenre: "Spiritual"
     },
     {
         idGenre: 16,
-        "nameGenre": "Supernatural"
+        nameGenre: "Supernatural"
     },
     {
         idGenre: 17,
-        "nameGenre": "Suspense"
+        nameGenre: "Suspense"
     },
     {
         idGenre: 18,
-        "nameGenre": "Tragedy"
+        nameGenre: "Tragedy"
     },
     {
         idGenre: 19,
-        "nameGenre": "Western"
+        nameGenre: "Western"
     },
     {
         idGenre: 20,
-        "nameGenre": "Homosexualité"
+        nameGenre: "Homosexualité"
     },
     {
         idGenre: 21,
-        "nameGenre": "Drama"
+        nameGenre: "Drama"
     },
     {
         idGenre: 22,
-        "nameGenre": "Quest"
+        nameGenre: "Quest"
     },
     {
         idGenre: 23,
-        "nameGenre": "Survival"
+        nameGenre: "Survival"
     }
 ]
 

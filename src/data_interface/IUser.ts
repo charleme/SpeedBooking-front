@@ -7,5 +7,5 @@ export default interface IUser{
     email: string;
     password: string;
     genres?: Record<string, number>;
-    languages: string;
+    languages: string | null;
 }

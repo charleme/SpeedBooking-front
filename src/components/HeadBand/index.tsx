@@ -18,7 +18,7 @@ export default class HeadBand extends React.Component{
                 <Button variant="contained"
                         size="large" color="primary"
                         href="http://localhost:3000/signin"
-                        style={{backgroundColor:colors.orangeButton}}>
+                        style={{backgroundColor:colors.orangeButton, color:colors.white}}>
                     Se connecter
                 </Button>
                 <Button variant="outlined"

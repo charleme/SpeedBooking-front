@@ -9,6 +9,8 @@ import {colors} from "../../default_color";
 import {Autocomplete} from "@material-ui/lab";
 import * as locales from '@material-ui/core/locale';
 import { genres, IGenre } from "../../genres";
+import UserHelpers from "../../helpers/UserHelpers";
+import IUser from "../../data_interface/IUser";
 
 interface IState{
     id_user?: number;
@@ -70,21 +72,18 @@ export default class SignUp extends React.Component<any, IState>{
     }
 
     changeGenreHandler = async (event: any, newValues: IGenre[]) => {
-        console.log(this.state.genres)
-        const genresCopy: string[] =[] 
+        const genresCopy: string[] = []
         
         newValues.forEach(genre => {
             genresCopy.push(genre.nameGenre)
         });
-        
         await this.setState({genres: genresCopy})
-        console.log(this.state.genres)
     }
 
     createUser = (e: any) => {
         e.preventDefault();
         if(this.state.password === this.state.confirm_password && this.state.username !== '' && this.state.email !== '' && this.state.password !== '' && this.state.languages !== ''){
-            let user = {
+            let user: IUser = {
                 username: this.state.username,
                 email: this.state.email,
                 password: this.state.password,
@@ -92,8 +91,9 @@ export default class SignUp extends React.Component<any, IState>{
             }
             let list = this.state.genres
 
-            console.log(list)
-            console.log("USER =>" + JSON.stringify(user))
+            UserHelpers.createUser(user, list).then(res => {
+                this.props.history.push('/signin')
+            })
         }else{
             alert("Please fill the registration form correctly")
         }
