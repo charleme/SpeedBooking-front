@@ -76,9 +76,11 @@ export default class SignUp extends React.Component<any, IState>{
     changeGenreHandler = async (event: any, newValues: IGenre[]) => {
         console.log(this.state.genres)
         const genresCopy: string[] =[] 
+        
         newValues.forEach(genre => {
             genresCopy.push(genre.nameGenre)
         });
+        
         await this.setState({genres: genresCopy})
         console.log(this.state.genres)
     }
@@ -204,7 +206,7 @@ export default class SignUp extends React.Component<any, IState>{
                            alignItems="center">
                         <Grid item xs={6}>
                             <Button
-                                style={{backgroundColor:colors.orangeButton}}
+                                style={{color:"white"}}
                                 fullWidth
                                 type="submit"
                                 variant="contained"

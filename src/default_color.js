@@ -3,5 +3,14 @@ export const colors = {
     white: "#f6f8fa",
     orangeButton: "#e8823b",
     orangeInnerPage: "#fae092",
-
+    theme: {
+        palette:{
+            primary: {
+                main: "#e8823b"
+            },
+            secondary: {
+                main: "##aa00ff"
+            }
+        }
+    }
 }

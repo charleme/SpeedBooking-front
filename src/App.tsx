@@ -13,16 +13,9 @@ import {colors} from "./default_color";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
-const theme = createMuiTheme({
-	palette:{
-		primary: {
-			main: "#fb8c00"
-		},
-		secondary: {
-			main: "##aa00ff"
-		}
-	}
-});
+const theme = createMuiTheme(
+	colors.theme
+);
 
 function App() {
   return (
