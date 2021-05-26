@@ -21,6 +21,10 @@ interface IState{
     color: boolean;
 }
 
+interface IGenre{
+    idGenre: number;
+    nameGenre: string;
+}
 
 export default class SignUp extends React.Component<any, IState>{
     constructor(props: any) {
@@ -69,17 +73,13 @@ export default class SignUp extends React.Component<any, IState>{
         this.setState({languages: newValue });
     }
 
-    changeGenreHandler = (event: any, newValues: object[]) => {
-        this.setState({genres: []})
+    changeGenreHandler = async (event: any, newValues: IGenre[]) => {
         console.log(this.state.genres)
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for (const [key, value] of Object.entries(newValues)){
-            const a = Object.entries(value)[1][1];
-            console.log(a)
-            this.setState({genres: this.state.genres.concat(a)})
-        }
-        // console.log(this.state.genres)
-        this.setState({genres: this.state.genres})
+        const genresCopy: string[] =[] 
+        newValues.forEach(genre => {
+            genresCopy.push(genre.nameGenre)
+        });
+        await this.setState({genres: genresCopy})
         console.log(this.state.genres)
     }
 
