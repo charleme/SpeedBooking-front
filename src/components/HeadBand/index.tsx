@@ -1,13 +1,15 @@
 import React from "react";
-import {Button, Grid} from "@material-ui/core";
+import {Button, Grid, Link} from "@material-ui/core";
 import {colors} from "../../default_color";
 
 export default class HeadBand extends React.Component{
 
     render() {
         const link = window.location.href.substring(21, window.location.href.length)
-        let contentUnlogged;
+        let hrefLink
+        let contentUnlogged
         if(link === "/"  || link === "/signin" || link === "/signup"){
+            hrefLink = "/"
             contentUnlogged = <Grid
                 style={{height:'100%',  width:'330px'}}
                 container
@@ -40,7 +42,9 @@ export default class HeadBand extends React.Component{
                     justify="space-between"
                     alignItems="center"
                 >
-                    <img src={"logo.png"}  alt="SpeedBooking"/>
+                    <Link href= {hrefLink}>
+                        <img src={"logo.png"}  alt="SpeedBooking"/>
+                    </Link>
                     {contentUnlogged}
                 </Grid>
         );
