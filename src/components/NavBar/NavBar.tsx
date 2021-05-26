@@ -23,9 +23,9 @@ import { Link } from 'react-router-dom';
 
 const navItems: INavItems[] = [
     {id:1, text: "Accueil", icon: <HomeIcon htmlColor="white"/>, link: "/"},
-    {id:2, text: "Profil", icon: <HomeIcon htmlColor="white"/>, link: "/profile"},
-    {id:3, text: "J'aime", icon: <HomeIcon htmlColor="white"/>, link: "/liked-book"},
-    {id:4, text: "Paramètres", icon: <HomeIcon htmlColor="white"/>, link: "/settings"},
+    {id:2, text: "Profil", icon: <AccountCircleIcon htmlColor="white"/>, link: "/profile"},
+    {id:3, text: "J'aime", icon: <FavoriteIcon htmlColor="white"/>, link: "/liked-book"},
+    {id:4, text: "Paramètres", icon: <SettingsIcon htmlColor="white"/>, link: "/settings"},
 ]
 
 
