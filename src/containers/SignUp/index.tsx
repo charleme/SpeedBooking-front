@@ -8,7 +8,7 @@ import {
 import {colors} from "../../default_color";
 import {Autocomplete} from "@material-ui/lab";
 import * as locales from '@material-ui/core/locale';
-import { genres } from "../../genres";
+import { genres, IGenre } from "../../genres";
 
 interface IState{
     id_user?: number;
@@ -21,10 +21,6 @@ interface IState{
     color: boolean;
 }
 
-interface IGenre{
-    idGenre: number;
-    nameGenre: string;
-}
 
 export default class SignUp extends React.Component<any, IState>{
     constructor(props: any) {

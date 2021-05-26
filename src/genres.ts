@@ -1,4 +1,4 @@
-export const genres = [
+export const genres:IGenre[] = [
     {
         idGenre: 1,
         "nameGenre": "Adventure"
@@ -92,3 +92,8 @@ export const genres = [
         "nameGenre": "Survival"
     }
 ]
+
+export interface IGenre{
+    idGenre:number,
+    nameGenre:string,
+}
