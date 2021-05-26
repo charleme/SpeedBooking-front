@@ -10,10 +10,24 @@ import SignUp from "./containers/SignUp";
 import SettingsPage from "./containers/Settings/SettingsPage";
 import LikedBookPage from "./containers/LikedBook/LikedBookPage";
 import {colors} from "./default_color";
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+
+const theme = createMuiTheme({
+	palette:{
+		primary: {
+			main: "#fb8c00"
+		},
+		secondary: {
+			main: "##aa00ff"
+		}
+	}
+});
 
 function App() {
   return (
     <div className="App">
+		<ThemeProvider theme={theme}>
         <Container disableGutters={true} maxWidth="xl" style={{height:'100%', backgroundColor: colors.orangeInnerPage}}>
             <HeadBand/>
             <Router>
@@ -27,6 +41,7 @@ function App() {
                 </Switch>
             </Router>
         </Container>
+		</ThemeProvider>
 
     </div>
   );

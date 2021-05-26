@@ -22,10 +22,10 @@ import {
 import { Link } from 'react-router-dom';
 
 const navItems: INavItems[] = [
-    {id:1, text: "Accueil", icon: <HomeIcon htmlColor="white"/>, link: "/"},
-    {id:2, text: "Profil", icon: <AccountCircleIcon htmlColor="white"/>, link: "/profile"},
-    {id:3, text: "J'aime", icon: <FavoriteIcon htmlColor="white"/>, link: "/liked-book"},
-    {id:4, text: "Paramètres", icon: <SettingsIcon htmlColor="white"/>, link: "/settings"},
+    {id:1, text: "Accueil", icon: <HomeIcon htmlColor="white" fontSize="large"/>, link: "/"},
+    {id:2, text: "Profil", icon: <AccountCircleIcon htmlColor="white" fontSize="large"/>, link: "/profile"},
+    {id:3, text: "J'aime", icon: <FavoriteIcon htmlColor="white" fontSize="large"/>, link: "/liked-book"},
+    {id:4, text: "Paramètres", icon: <SettingsIcon htmlColor="white" fontSize="large"/>, link: "/settings"},
 ]
 
 
@@ -34,7 +34,7 @@ const StyledListItem= withStyles({
         padding:"20px 16px",
     },
     selected:{
-        backgroundColor: "#705b7e!important",
+        backgroundColor: "#886CA0!important",
     }
   })(ListItem);
 
@@ -78,6 +78,8 @@ class NavBar extends Component<INavBarProps, {}> {
                             variant="contained" 
                             id="sign-out-button" 
                             startIcon={<ExitToAppIcon/>}
+                            color="primary"
+                            style={{color:"white"}}
                         >
                             Deconnexion
                         </Button>
