@@ -32,16 +32,19 @@ export default class LikedBookPage extends Component<any, IStates> {
     render() {
         const listLenght = this.state.listBook.length
         const library = (listLenght > 0
-            ? this.state.listBook.map((book)=>
-            <BookWithProgress titleBook={book['titleBook']} imageBook={book['imageBook']} progress={book['progress']}/>
-        )
-            : <Grid container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                style={{margin:"35% 0 35% 0"}}>
+            ?
+            this.state.listBook.map((book)=>
+                <BookWithProgress titleBook={book['titleBook']} imageBook={book['imageBook']} progress={book['progress']} idBook={book['idBook']}/>
+            )
+            :
+            <Grid container
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                  style={{margin:"35% 0 35% 0"}}>
                 <h1 style={{color:colors.orangeButton}}>Your Library is empty</h1>
-            </Grid>)
+            </Grid>
+        )
 
         return (
             <PageWithNav selected={3}>
@@ -49,18 +52,18 @@ export default class LikedBookPage extends Component<any, IStates> {
                       direction="row"
                       justify="center"
                       alignItems="center"
-                      style={{height:'100%', border:"1px solid black"}}>
+                      style={{height:'100%'}}>
                     <Grid container xs={12}
                           direction="row"
                           justify="flex-start"
                           alignItems="flex-end"
-                          style={{height:'12%', border:"1px solid blue"}}>
+                          style={{height:'12%'}}>
                         <Grid container
                               direction="row"
                               justify="flex-start"
                               alignItems="center"
                               xs={3}
-                              style={{height:'100%', border:"1px solid blue",paddingLeft:"2em"}}>
+                              style={{height:'100%',paddingLeft:"2em"}}>
                             <FavoriteBorder color="primary" fontSize="large"/>
                             <h1 style={{color:colors.orangeButton}}>J'aime</h1>
                         </Grid>
@@ -70,7 +73,7 @@ export default class LikedBookPage extends Component<any, IStates> {
                           justify="flex-start"
                           alignItems="flex-start"
                           spacing={3}
-                          style={{height:'85%', border:"1px solid red"}}>
+                          style={{height:'85%'}}>
                         {library}
                     </Grid>
                 </Grid>

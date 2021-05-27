@@ -1,7 +1,8 @@
 import React from "react";
-import {Grid, LinearProgress} from "@material-ui/core";
+import {Grid, LinearProgress, Link} from "@material-ui/core";
 
 interface IProps {
+    idBook: number | undefined;
     titleBook: string;
     imageBook: string;
     progress: number;
@@ -14,27 +15,31 @@ export default class BookWithProgress extends React.Component<IProps, any> {
     }
 
     render() {
-        const titleBook = (this.props.titleBook.length > 14 ? this.props.titleBook.substring(0,14).concat("...") : this.props.titleBook)
+        const titleBook = this.props.titleBook;
+        const titleBookFinal = (titleBook.length > 14 ? titleBook.substring(0,14).concat("...") : titleBook)
         const imageBook = this.props.imageBook
         const progress = this.props.progress
+        const bookHref = "http://localhost:3000/readBook/".concat(String(this.props.idBook))
         return (
             <Grid container
                   justify="center"
                   alignItems="center"
                   spacing={0}
-                  style={{height:"265px", width:"190px", margin: "3em 2em 1em 3em", border:"1px solid black"}}>
-                <Grid item style={{border:"1px solid green"}}>
-                    <img src={imageBook} width="150px" height="225px" alt={titleBook}/>
+                  style={{height:"260px", width:"190px", margin: "0em 2em 1em 3em"}}>
+                <Grid item>
+                    <Link href={bookHref}>
+                        <img src={imageBook} width="150px" height="225px" alt={titleBook}/>
+                    </Link>
                 </Grid>
-                <Grid item style={{border:"1px solid red"}}>
+                <Grid item>
                     <LinearProgress style={{width:"150px"}} variant="determinate" value={progress} />
                 </Grid>
                 <Grid container
                       direction="row"
                       justify="flex-start"
                       alignItems="flex-start"
-                      style={{border:"1px solid blue", width:"150px"}}>
-                    <div style={{fontWeight:"bold"}}>{titleBook}</div>
+                      style={{width:"150px"}}>
+                    <div style={{fontWeight:"bold"}}>{titleBookFinal}</div>
                 </Grid>
             </Grid>
         );
