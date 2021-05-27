@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import { IProfileProps, IProfileStates, ITextField } from "./IProfile";
+import { IProfileProps, IProfileStates} from "./IProfile";
 import {colors} from "../../default_color";
 import {mockUser} from "../../data_interface/IUser"
-import IBook, {mockBook} from "../../data_interface/IBook"
+import {mockBook} from "../../data_interface/IBook"
+import ITextField from "../../data_interface/ITextField"
 
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 
 import { 
     Button,
@@ -16,13 +16,16 @@ import {
 import { Autocomplete } from "@material-ui/lab";
 import { genres } from "../../genres";
 import IGenre from "../../data_interface/IGenre";
-import BooksProfile from "./BooksProfile";
 import BooksDisplay from "../Books/BooksDisplay";
 import * as locales from '@material-ui/core/locale';
 
 let textFields: ITextField[];
 let jsxTextFields:JSX.Element[];
 
+/**
+ * @todo make submit
+ * @todo display user current genre by default
+ */
 class Profile extends Component<IProfileProps, IProfileStates> {
     constructor(props:IProfileProps) {
         super(props);
@@ -38,7 +41,6 @@ class Profile extends Component<IProfileProps, IProfileStates> {
 
         this.changeUsernameHandler.bind(this);
         this.changeEmailHandler.bind(this);
-        this.changeBooksHandler.bind(this)
     }
 
     initiateFields(){
@@ -66,16 +68,8 @@ class Profile extends Component<IProfileProps, IProfileStates> {
             )
     }
 
-    changeBooksHandler = (books: IBook[]) =>{
-        this.setState({books:books});
-    }
-
-    changeGenreHandler = (event: any, newValues: IGenre[]) => {
-        console.log(this.state.genres)
-        const genresCopy: string[] =[] 
-        
+    changeGenreHandler = (event: any, newValues: IGenre[]) => {       
         this.setState({genres: newValues})
-        console.log(this.state.genres)
     }
 
     changeUsernameHandler = (event:any) => {
@@ -99,7 +93,7 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                 alignItems="center"
             >
                 <h1 style={{color: colors.orangeButton}}>Mon Profil</h1>
-                <form style={{backgroundColor:colors.white, padding:'2em', width:"40%"}}>
+                <form style={{backgroundColor:colors.white, padding:'2em', width:"40%", marginBottom:"30px"}}>
                     <Grid container spacing={2}  alignItems="center">
                         {jsxTextFields}
                         <Grid item xs={12}>
@@ -125,7 +119,7 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                                     <TextField
                                         {...params}
                                         variant="outlined"
-                                        label="Favorite genres"
+                                        label="Genres Favoris"
                                         placeholder="Favorite genres"
                                     />
                                 )}
@@ -136,27 +130,16 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                     <BooksDisplay books={this.state.books} />
 
                     <Grid style={{marginTop:"20px"}} container justify="space-around"  alignItems="center" spacing={0}>
-                        <Button
-                            style={{color:"white"}}
-                            variant="contained"
-                            color="primary"
-                            size="medium"
-                            startIcon={<SaveIcon />}
-                        >
-                            Sauvegarder
-                        </Button>
                         <Grid style={{marginTop:"20px"}} container direction="row" justify="space-around" spacing={0}>
-                            <Grid item xs={6}>
-                                <Button
-                                
-                                    variant="outlined"
-                                    color="primary"
-                                    size="medium"
-                                    startIcon={<ImportContactsIcon />}
-                                >
-                                    Modifier mes livres
-                                </Button>
-                            </Grid>
+                            <Button
+                                style={{color:"white"}}
+                                variant="contained"
+                                color="primary"
+                                size="medium"
+                                startIcon={<SaveIcon />}
+                            >
+                                Sauvegarder
+                            </Button>
                             <Grid item xs={6}>
                                 <Button
                                 

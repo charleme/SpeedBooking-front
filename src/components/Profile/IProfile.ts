@@ -13,10 +13,3 @@ export interface IProfileStates{
     language: string;
 }
 
-export interface ITextField{
-    name: string;
-    label: string;
-    onChange: (e:any) => void;
-    autocomplete:string;
-    default: String;
-}

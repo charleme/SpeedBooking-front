@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 import {IBooksDisplayProps, IBooksDisplayStates} from "./IBooksDisplay"
 
-import { Grid, Typography } from "@material-ui/core";
+import { Container, Grid, IconButton, Typography } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add"
 import Book from "./Book";
+import { Link } from "react-router-dom";
 
 
 class BooksDisplay extends Component<IBooksDisplayProps, IBooksDisplayStates> {
@@ -14,14 +16,30 @@ class BooksDisplay extends Component<IBooksDisplayProps, IBooksDisplayStates> {
         return (
             <div>
                 <Typography align="left" style={{margin:"10px"}}>Mes livres :</Typography>
-                <Grid container direction="row" spacing={1}>
-                    
+                <Grid container direction="row" alignItems="center" spacing={1}>
+                        
                         {this.props.books.map(book =>
+                            
                             <Grid item xs={4} >
-                                <Book book={book}/>
+                                <Link to={"/editBook?id=" + book.idBook} style={{textDecoration:"none"}}>
+                                    <Book book={book}/>
+                                </Link>
                             </Grid>
+                            
                         )}
-                    
+                        
+                        <Grid item xs={4}>
+                        <Link to="/createBook" style={{textDecoration:"none"}}>
+                            <Container>
+                                <IconButton aria-label="add-book">
+                                    <AddIcon color="primary"/>
+                                </IconButton>
+                                <Typography color="primary">
+                                    Ajouter un livre
+                                </Typography>
+                            </Container>
+                        </Link>
+                    </Grid>
                 </Grid>
             </div>
         );
