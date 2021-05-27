@@ -8,7 +8,8 @@ import {
 import {colors} from "../../default_color";
 import {Autocomplete} from "@material-ui/lab";
 import * as locales from '@material-ui/core/locale';
-import { genres, IGenre } from "../../genres";
+import { genres } from "../../genres";
+import IGenre from "../../data_interface/IGenre"
 import { palette } from '@material-ui/system';
 
 interface IState{

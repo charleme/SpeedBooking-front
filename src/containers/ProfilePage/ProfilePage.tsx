@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import NavBar from '../../components/NavBar/NavBar';
 import PageWithNav from '../../components/NavBar/PageWithNav';
-import Profil from '../../components/Profil/Profil';
+import Profile from '../../components/Profile/Profile';
 
 class ProfilePage extends Component<any, any> {
     constructor(props:any) {
@@ -10,7 +10,7 @@ class ProfilePage extends Component<any, any> {
     render() {
         return (
             <PageWithNav selected={2}>
-                <Profil/>
+                <Profile/>
             </PageWithNav>
         );
     }

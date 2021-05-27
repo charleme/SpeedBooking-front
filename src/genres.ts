@@ -1,3 +1,5 @@
+import IGenre from "./data_interface/IGenre";
+
 export const genres:IGenre[] = [
     {
         idGenre: 1,
@@ -91,9 +93,4 @@ export const genres:IGenre[] = [
         idGenre: 23,
         "nameGenre": "Survival"
     }
-]
-
-export interface IGenre{
-    idGenre:number,
-    nameGenre:string,
-}
+];

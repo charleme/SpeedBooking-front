@@ -1,5 +1,6 @@
 export interface INavBarProps{
     selected: number;
+    history?:any;
 }
 
 export interface INavItems{
