@@ -8,9 +8,10 @@ import {
 import {colors} from "../../default_color";
 import {Autocomplete} from "@material-ui/lab";
 import * as locales from '@material-ui/core/locale';
-import { genres, IGenre } from "../../genres";
+import { genres } from "../../genres";
 import UserHelpers from "../../helpers/UserHelpers";
 import IUser from "../../data_interface/IUser";
+import IGenre from "../../data_interface/IGenre"
 
 interface IState{
     id_user?: number;

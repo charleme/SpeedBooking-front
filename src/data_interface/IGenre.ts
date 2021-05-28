@@ -2,7 +2,7 @@ import IGenreBook from "./IGenreBook";
 
 export default interface IGenre{
     idGenre?: number;
-    nameGenre: String;
+    nameGenre: string;
 }
 
 export interface IGenreWithScore extends IGenre{

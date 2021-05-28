@@ -13,6 +13,9 @@ import {colors} from "./default_color";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import ConnectedHomePage from './containers/ConnectedHomePage/ConnectedHomePage';
+import CreateBookPage from './containers/CreateBookPage/CreateBookPage';
+import EditBookPage from './containers/EditBookPage/EditBookPage';
+import EditPasswordPage from './containers/EditPasswordPage/EditPasswordPage';
 
 const theme = createMuiTheme(
 	colors.theme
@@ -51,6 +54,10 @@ function App() {
 							<Route path = "/profile" component = {ProfilePage}></Route>
 							<Route path = "/liked-book" component = {LikedBookPage}></Route>
 							<Route path = "/settings" component = {SettingsPage}></Route>
+							<Route path = "/profile" component = {ProfilePage}></Route>
+							<Route path = "/createBook" component = {CreateBookPage}></Route>
+							<Route path = "/editBook" component = {EditBookPage}></Route>
+							<Route path = "/editPassword" component = {EditPasswordPage}></Route>
 						</Switch>
 					)};
 				</Router>
