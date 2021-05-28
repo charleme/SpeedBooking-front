@@ -1,9 +1,9 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import React, {Component} from "react";
-import ITextField from "../../data_interface/ITextField";
+import { ITextField } from "../Form/IFormTextField";
 import { colors } from "../../default_color";
-import { IBookFormProps, IBookFormStates } from "./IBookFrom";
+import { IBookFormProps, IBookFormStates } from "./IBookForm";
 import * as locales from '@material-ui/core/locale';
 import { genres } from "../../genres";
 import IGenre from "../../data_interface/IGenre";
@@ -16,8 +16,9 @@ import IBook from "../../data_interface/IBook";
 
 let textFields: ITextField[];
 let jsxTextFields:JSX.Element[];
-let deleteButton: JSX.Element;
-let cancelButton:JSX.Element;
+let deleteButton: JSX.Element = <></>;
+let cancelButton:JSX.Element = <></>;
+
 
 class BookForm extends Component<IBookFormProps, IBookFormStates> {
     constructor(props: IBookFormProps) {
@@ -79,54 +80,39 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
     }
 
     initButtons = () =>{
-        deleteButton = (
-            <div>
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    size="medium"
-                    startIcon={<DeleteIcon />}
-                    onClick={this.handleOpen}
-                >
-                    Supprimer le livre
-                </Button>
-                <Dialog
-                    open={this.state.openDialog}
-                    onClose={this.handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">{"Etes-vous sûr de vouloir supprimer le livre"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Il ne sera plus possible de récupérer les données du livre une fois qu'il est supprimé
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Annuler
-                        </Button>
-                        <Button onClick={this.deleteBook} color="primary" autoFocus>
-                            Supprimer
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
-            
-        );
-        
-        cancelButton = (
-            <Link to="/profil" style={{textDecoration:"none"}}>
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    size="medium"
-                    startIcon={<PersonIcon />}
-                >
-                    Retourner au profil
-                </Button>
-            </Link>
-        );
+        if(this.props.edit)
+            deleteButton = (
+                <div>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        size="medium"
+                        startIcon={<DeleteIcon />}
+                        onClick={this.handleOpen}
+                    >
+                        Supprimer le livre
+                    </Button>
+                    
+                </div>
+                
+            );
+        else
+            cancelButton = (
+                <Link to="/profile" style={{textDecoration:"none"}}>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        size="medium"
+                        startIcon={<PersonIcon />}
+                    >
+                        Retourner au profil
+                    </Button>
+                </Link>
+            );
+    }
+
+    initDialog = () => {
+
     }
 
     changeGenreHandler = (event: any, newValues: IGenre[]) => {       
@@ -180,7 +166,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
 
     render() {
         return (
-            <form style={{backgroundColor:colors.white, padding:'2em', width:"60%", marginBottom:"30px"}}>
+            <div>
                 <Grid container spacing={2}  alignItems="center">
                     {jsxTextFields}
                 
@@ -215,22 +201,46 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                     </Grid>
                 </Grid>
                 <Grid style={{marginTop:"20px"}} container justify="space-around"  alignItems="center" spacing={0}>
-                        <Grid style={{marginTop:"20px"}} container direction="row" justify="space-around" spacing={0}>
-                            <Button
-                                style={{color:"white"}}
-                                variant="contained"
-                                color="primary"
-                                size="medium"
-                                startIcon={<SaveIcon />}
-                                onClick={this.submit}
-                            >
-                                Sauvegarder
-                            </Button>
-                            {(this.props.edit) ? deleteButton : cancelButton}
-                        </Grid>
+                    <Grid style={{marginTop:"20px"}} container direction="row" justify="space-around" spacing={0}>
+                        <Button
+                            style={{color:"white"}}
+                            variant="contained"
+                            color="primary"
+                            size="medium"
+                            startIcon={<SaveIcon />}
+                            onClick={this.submit}
+                        >
+                            Sauvegarder
+                        </Button>
+                        {(this.props.edit) ? deleteButton : cancelButton}
                     </Grid>
+                </Grid>
+                {(this.props.edit) ? (
+                <Dialog
+                    open={this.state.openDialog}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Etes-vous sûr de vouloir supprimer le livre"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Il ne sera plus possible de récupérer les données du livre une fois qu'il est supprimé
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                            Annuler
+                        </Button>
+                        <Button onClick={this.deleteBook} color="primary" autoFocus>
+                            Supprimer
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                ) : <></>}
+                
                
-            </form>
+            </div>
         );
     }
 }

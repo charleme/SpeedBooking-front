@@ -14,6 +14,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import CreateBookPage from './containers/CreateBookPage/CreateBookPage';
 import EditBookPage from './containers/EditBookPage/EditBookPage';
+import EditPasswordPage from './containers/EditPasswordPage/EditPasswordPage';
 
 const theme = createMuiTheme(
 	colors.theme
@@ -35,6 +36,7 @@ function App() {
 						<Route path = "/settings" component = {SettingsPage}></Route>
 						<Route path = "/createBook" component = {CreateBookPage}></Route>
 						<Route path = "/editBook" component = {EditBookPage}></Route>
+						<Route path = "/editPassword" component = {EditPasswordPage}></Route>
 					</Switch>
 				</Router>
 			</Container>

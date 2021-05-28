@@ -1,7 +1,6 @@
-import { Grid } from "@material-ui/core";
 import React, {Component} from "react";
 import IBook from "../../data_interface/IBook";
-import { colors } from "../../default_color";
+import Form from "../Form/Form";
 import BookForm from "./BookForm";
 import {ICreateBookProps, ICreateBookStates} from "./ICreateBook"
 
@@ -20,15 +19,9 @@ class CreateBook extends Component<ICreateBookProps, ICreateBookStates> {
 
     render() {
         return (
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-            >
-                <h1 style={{color: colors.orangeButton}}>Ajouter mon livre</h1>
+            <Form title="Ajouter mon livre" width={60}>
                 <BookForm onSubmitHandler={this.onSubmitHandler} edit={false}/>
-            </Grid>
+            </Form>
         );
     }
 }

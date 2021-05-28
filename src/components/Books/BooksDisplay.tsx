@@ -20,7 +20,7 @@ class BooksDisplay extends Component<IBooksDisplayProps, IBooksDisplayStates> {
                         
                         {this.props.books.map(book =>
                             
-                            <Grid item xs={4} >
+                            <Grid item xs={3} >
                                 <Link to={"/editBook?id=" + book.idBook} style={{textDecoration:"none"}}>
                                     <Book book={book}/>
                                 </Link>
@@ -28,7 +28,7 @@ class BooksDisplay extends Component<IBooksDisplayProps, IBooksDisplayStates> {
                             
                         )}
                         
-                        <Grid item xs={4}>
+                        <Grid item xs={3}>
                         <Link to="/createBook" style={{textDecoration:"none"}}>
                             <Container>
                                 <IconButton aria-label="add-book">

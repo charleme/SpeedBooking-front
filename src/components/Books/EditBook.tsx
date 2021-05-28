@@ -3,14 +3,22 @@ import React, {Component} from "react";
 import IBook, { mockBook } from "../../data_interface/IBook";
 import { colors } from "../../default_color";
 import BookForm from "./BookForm";
-import {ICreateBookProps, ICreateBookStates} from "./ICreateBook"
+import {IEditBookProps, IEditBookStates} from "./IEditBook"
+import { withRouter } from "react-router-dom";
+import Form from "../Form/Form";
 
-
-class CreateBook extends Component<ICreateBookProps, ICreateBookStates> {
-    constructor(props: ICreateBookProps) {
+/**
+ * @todo check if the id book in url params is wrote by the connected user
+ */
+class EditBook extends Component<IEditBookProps, IEditBookStates> {
+    constructor(props: IEditBookProps) {
         super(props);
         this.state = {  };
-        
+
+        const search = this.props.location.search;
+        const name = new URLSearchParams(search).get("id");
+
+        console.log(name)
         this.onSubmitHandler.bind(this);
     }
 
@@ -21,17 +29,11 @@ class CreateBook extends Component<ICreateBookProps, ICreateBookStates> {
 
     render() {
         return (
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-            >
-                <h1 style={{color: colors.orangeButton}}>Modifier mon livre</h1>
+            <Form title="Modifier mon livre" width={60}>
                 <BookForm onSubmitHandler={this.onSubmitHandler} edit={true} book={mockBook}/>
-            </Grid>
+            </Form>
         );
     }
 }
 
-export default CreateBook;
+export default withRouter(EditBook);
