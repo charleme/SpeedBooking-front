@@ -32,11 +32,11 @@ class UserHelpers{
         return axios.delete(USER_API_BASE_URL + "/deleteUser/" + userId);
     }
 
-    getUserReadBooks(userId:number): Promise<AxiosResponse<IBookWithProgress>>{
+    getUserReadBooks(userId:number): Promise<AxiosResponse<IBookWithProgress[]>>{
         return axios.get(USER_API_BASE_URL + "/getUserReadBooks/" + userId);
     }
 
-    isUserPassword(userId:number, password: string): Promise<AxiosResponse<IBookWithProgress>>{
+    isUserPassword(userId:number, password: string): Promise<AxiosResponse<boolean>>{
         return axios.get(USER_API_BASE_URL + "/isUserPassword/" + userId + "&" + password);
     }
 }
