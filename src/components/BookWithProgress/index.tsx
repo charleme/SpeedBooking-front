@@ -1,13 +1,7 @@
 import React from "react";
 import {Grid, LinearProgress, Link} from "@material-ui/core";
+import {IProps} from "./IBookWithProgress";
 
-interface IProps {
-    idBook: number | undefined;
-    titleBook: string;
-    imageBook: string;
-    progress: number;
-
-}
 
 export default class BookWithProgress extends React.Component<IProps, any> {
     constructor(props: IProps) {

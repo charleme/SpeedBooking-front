@@ -1,31 +1,30 @@
 import React, {Component} from 'react'
 import PageWithNav from '../../components/NavBar/PageWithNav';
-import {Grid} from "@material-ui/core";
+import {CircularProgress, Grid} from "@material-ui/core";
 import UserHelpers from "../../helpers/UserHelpers";
-import {IBookWithProgress} from "../../data_interface/IBook";
 import {FavoriteBorder} from "@material-ui/icons";
 import {colors} from "../../default_color";
 import BookWithProgress from "../../components/BookWithProgress";
+import {IStates} from "./ILikeBook";
 
-export interface IStates{
-    listBook: IBookWithProgress[]
-}
+
 
 export default class LikedBookPage extends Component<any, IStates> {
     constructor(props:any) {
         super(props);
         this.state = {
-            listBook: []
+            listBook: [],
+            isLoading: false,
         }
     }
 
-
     componentDidMount() {
-        UserHelpers.getUserReadBooks(1).then(async res => {
+        this.setState({isLoading: true})
+        UserHelpers.getUserReadBooks(1).then(res => {
             for(const [key, book] of Object.entries(res.data)){
-                await this.setState({listBook: this.state.listBook.concat(book)})
+                this.setState({listBook: this.state.listBook.concat(book)})
             }
-            console.log(this.state.listBook)
+            this.setState({isLoading: false})
         })
     }
 
@@ -45,6 +44,16 @@ export default class LikedBookPage extends Component<any, IStates> {
                 <h1 style={{color:colors.orangeButton}}>Your Library is empty</h1>
             </Grid>
         )
+        const loadingLibrary = (this.state.isLoading
+                                    ?
+                                    <Grid container
+                                            direction="row"
+                                            justify="center"
+                                            alignItems="center"
+                                            style={{margin:"10% 0 10% 0"}}>
+                                        <CircularProgress size={100}/>
+                                    </Grid>
+                                    : library)
 
         return (
             <PageWithNav selected={3}>
@@ -74,7 +83,7 @@ export default class LikedBookPage extends Component<any, IStates> {
                           alignItems="flex-start"
                           spacing={3}
                           style={{height:'85%'}}>
-                        {library}
+                        {loadingLibrary}
                     </Grid>
                 </Grid>
             </PageWithNav>
