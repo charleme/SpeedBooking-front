@@ -34,8 +34,9 @@ function App() {
     <div className="App">
 		<ThemeProvider theme={theme}>
 			<Container disableGutters={true} maxWidth="xl" style={{height:'100%', backgroundColor: colors.orangeInnerPage}}>
-				<HeadBand/>
+				
 				<Router>
+					<HeadBand/>
 					{(!userConnected) ? (
 						<Switch>
 							<Route path ="/" exact component = {Home}></Route>
