@@ -59,7 +59,7 @@ function App() {
 							<Route path = "/editBook" component = {EditBookPage}></Route>
 							<Route path = "/editPassword" component = {EditPasswordPage}></Route>
 						</Switch>
-					)};
+					)}
 				</Router>
 			</Container>
 		</ThemeProvider>

@@ -36,7 +36,7 @@ class Profile extends Component<IProfileProps, IProfileStates> {
             email: mockUser.email,
             genres: [],
             books: [mockBook],
-            language: mockUser.languages
+            language: (mockUser.languages) ? mockUser.languages : ""
         };
         this.initiateFields();
 

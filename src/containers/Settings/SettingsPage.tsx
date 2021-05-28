@@ -3,7 +3,8 @@ import PageWithNav from '../../components/NavBar/PageWithNav';
 import {Button, Grid, TextField} from "@material-ui/core";
 import SettingsIcon from '@material-ui/icons/Settings';
 import {colors} from "../../default_color";
-import {genres, IGenre} from "../../genres";
+import {genres} from "../../genres";
+import IGenre from "../../data_interface/IGenre"
 import {Autocomplete} from "@material-ui/lab";
 import UserHelpers from "../../helpers/UserHelpers";
 
