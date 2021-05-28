@@ -82,7 +82,7 @@ export default class SignUp extends React.Component<any, IState>{
 
     createUser = (e: any) => {
         e.preventDefault();
-        if(this.state.password === this.state.confirm_password && this.state.username !== '' && this.state.email !== '' && this.state.password !== '' && this.state.languages !== ''){
+        if(this.state.password === this.state.confirm_password && this.state.username !== '' && this.state.email !== '' && this.state.password !== '' && this.state.languages !== '' && this.state.languages !== null){
             let user: IUser = {
                 username: this.state.username,
                 email: this.state.email,
@@ -92,7 +92,12 @@ export default class SignUp extends React.Component<any, IState>{
             let list = this.state.genres
 
             UserHelpers.createUser(user, list).then(res => {
-                this.props.history.push('/signin')
+                if(res.data.idUser)
+                    localStorage.setItem("id",  res.data.idUser.toString())
+                else
+                    console.error("Utilisateur récupéré sans Id")
+                
+                this.props.history.push('/')
             })
         }else{
             alert("Please fill the registration form correctly")

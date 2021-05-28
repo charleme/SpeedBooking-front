@@ -41,6 +41,8 @@ const StyledListItem= withStyles({
 let jsxNavItem:JSX.Element[];
 
 
+
+
 class NavBar extends Component<INavBarProps, {}> {
     constructor(props: INavBarProps){
         super(props);
@@ -59,6 +61,12 @@ class NavBar extends Component<INavBarProps, {}> {
                 </StyledListItem>
             </Link>
         )
+
+        this.signOut.bind(this);
+    }
+
+    signOut = () => {
+        localStorage.removeItem("id")
     }
 
     render() {
@@ -80,6 +88,7 @@ class NavBar extends Component<INavBarProps, {}> {
                             startIcon={<ExitToAppIcon/>}
                             color="primary"
                             style={{color:"white"}}
+                            onClick={this.signOut}
                         >
                             Deconnexion
                         </Button>

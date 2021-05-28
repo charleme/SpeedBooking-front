@@ -2,6 +2,7 @@ import { Button, Container, Typography } from '@material-ui/core';
 import React, {Component} from 'react';
 import IBook from '../../data_interface/IBook';
 import IUser from '../../data_interface/IUser';
+import AuthentificationHelpers from '../../helpers/AuthentificationHelpers';
 import BookHelpers from '../../helpers/BookHelpers';
 import UserHelpers from '../../helpers/UserHelpers';
 
@@ -44,7 +45,7 @@ class RequestTest extends Component<any, IState> {
         e.preventDefault()
         const component = this;
 
-        UserHelpers.getUserReadBooks(1).then(function (response){
+        UserHelpers.isUserPassword(12, "test").then(function (response){
             const jsxResponse: JSX.Element = ( 
                         <div>
                             <div>

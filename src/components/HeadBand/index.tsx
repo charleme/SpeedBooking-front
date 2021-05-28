@@ -1,15 +1,19 @@
 import React from "react";
-import {Button, Grid, Link} from "@material-ui/core";
+import {Button, Grid} from "@material-ui/core";
+import { Link } from "react-router-dom";
 import {colors} from "../../default_color";
+import UserHelpers from "../../helpers/UserHelpers";
+import IUser from "../../data_interface/IUser"
+
 
 export default class HeadBand extends React.Component{
 
     render() {
         const link = window.location.href.substring(21, window.location.href.length)
-        let hrefLink
-        let contentUnlogged
-        if(link === "/"  || link === "/signin" || link === "/signup"){
-            hrefLink = "/"
+        let contentUnlogged;
+        const currentUserId:number|null  = (localStorage.getItem("id") !== null) ? Number(localStorage.getItem("id")) : null ;
+
+        if(currentUserId === null){
             contentUnlogged = <Grid
                 style={{height:'100%',  width:'330px'}}
                 container
@@ -31,7 +35,9 @@ export default class HeadBand extends React.Component{
                 </Button>
             </Grid>
         }else{
-            //TODO : Add profile information for the current connected user !
+            UserHelpers.getUserById(currentUserId).then(function(response){
+                const user:IUser = response.data
+            })
         }
 
         return (
@@ -42,7 +48,7 @@ export default class HeadBand extends React.Component{
                     justify="space-between"
                     alignItems="center"
                 >
-                    <Link href= {hrefLink}>
+                    <Link to="/">
                         <img src={"logo.png"}  alt="SpeedBooking"/>
                     </Link>
                     {contentUnlogged}

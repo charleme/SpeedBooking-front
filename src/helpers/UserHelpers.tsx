@@ -31,6 +31,10 @@ class UserHelpers{
     getUserReadBooks(userId:number): Promise<AxiosResponse<IBookWithProgress>>{
         return axios.get(USER_API_BASE_URL + "/getUserReadBooks/" + userId);
     }
+
+    isUserPassword(userId:number, password: string): Promise<AxiosResponse<IBookWithProgress>>{
+        return axios.get(USER_API_BASE_URL + "/isUserPassword/" + userId + "&" + password);
+    }
 }
 
 export default new UserHelpers()
