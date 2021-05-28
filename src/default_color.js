@@ -3,6 +3,8 @@ export const colors = {
     white: "#f6f8fa",
     orangeButton: "#e8823b",
     orangeInnerPage: "#fae092",
+    purple:"#8327ca",
+    lightPurple:"#9c7cd4",
     theme: {
         palette:{
             primary: {

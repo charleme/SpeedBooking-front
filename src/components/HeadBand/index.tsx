@@ -6,7 +6,7 @@ export default class HeadBand extends React.Component{
 
     render() {
         const link = window.location.href.substring(21, window.location.href.length)
-        let hrefLink
+        let hrefLink = ""
         let contentUnlogged
         if(link === "/"  || link === "/signin" || link === "/signup"){
             hrefLink = "/"
