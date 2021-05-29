@@ -9,9 +9,10 @@ import SaveIcon from '@material-ui/icons/Save';
 import { 
     Button,
     Grid,
+    Snackbar,
     TextField
 } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
+import { Alert, Autocomplete } from "@material-ui/lab";
 import Form from "../Form/Form";
 import {withRouter, Link} from "react-router-dom"
 import UserHelpers from "../../helpers/UserHelpers";
@@ -34,11 +35,19 @@ class Profile extends Component<IProfileProps, IProfileStates> {
             userName: "",
             email: "",
             books: [],
-            language: ""
+            language: "",
+            openSnackError:false,
+            openSnackSuccess:false,
         };
         
         this.changeUsernameHandler.bind(this);
         this.changeEmailHandler.bind(this);
+        this.setFieldData.bind(this);
+        this.changeEmailHandler.bind(this);
+        this.changeLanguagesHandler.bind(this);
+        this.handleSnackErrorClose.bind(this);
+        this.handleSnackSuccessClose.bind(this);
+        this.submitChange.bind(this);
     }
 
     componentDidMount = () => {
@@ -63,8 +72,9 @@ class Profile extends Component<IProfileProps, IProfileStates> {
         this.setState({email: event.target.value});
     }
 
-    changeLanguagesHandler = (event:any) => {
-        this.setState({language: event.target.value})
+    changeLanguagesHandler = (event: any, newValue: string | null) => {
+        if(newValue != null)
+            this.setState({language: newValue});
     }
 
     setFieldData(){
@@ -72,6 +82,39 @@ class Profile extends Component<IProfileProps, IProfileStates> {
             {name:"username", label:"Login", autocomplete:"username", onChange:this.changeUsernameHandler, value: this.state.userName},
             {name:"email", label:"Adresse Mail", autocomplete:"email", onChange:this.changeEmailHandler, value: this.state.email},
         ]
+    }
+
+    handleSnackErrorClose = () => {
+        this.setState({openSnackError:false})
+    }
+
+    handleSnackSuccessClose = () => {
+        this.setState({openSnackSuccess:false})
+    }
+
+    submitChange = () => {
+        currentUser.username = this.state.userName;
+        currentUser.email = this.state.email;
+        currentUser.languages = this.state.language;
+        
+        UserHelpers.updateUser(currentUser).then(response => {
+            const newUser:IUser =  response.data
+            if(newUser.email === currentUser.email 
+                    && newUser.languages === currentUser.languages
+                    && newUser.username === currentUser.username
+                    && newUser.idUser === currentUser.idUser){
+                
+                console.log("Modification réussi");
+                this.setState({openSnackSuccess:true})
+            }
+            else{
+                console.error("Données mal mis à jour :")
+                this.setState({openSnackError:true})
+            }
+        }).catch((error =>{
+            console.error("Echec mise à jour des données:")
+            this.setState({openSnackError:true})
+        }))
     }
 
     render() {
@@ -83,15 +126,15 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                         <FormTextField fieldInformation={field} />
                     ))}
                     <Grid item xs={12}>
-                        <Autocomplete
-                            id="language"
-                            options={Object.keys(locales)}
-                            getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
-                            style={{ width: '100%' }}
-                            renderInput={(params) => <TextField {...params} label="Langue" variant="outlined" />}
-                            onChange={this.changeLanguagesHandler}
-                            value={this.state.language}
-                        />
+                    <Autocomplete
+                                id="combo-box-demo"
+                                options={Object.keys(locales)}
+                                getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
+                                style={{ width: '100%' }}
+                                renderInput={(params) => <TextField {...params} label="Language" variant="outlined" />}
+                                onChange={this.changeLanguagesHandler}
+                                value={this.state.language}
+                            />
                     </Grid>
                 </Grid>
 
@@ -105,6 +148,7 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                             color="primary"
                             size="medium"
                             startIcon={<SaveIcon />}
+                            onClick={this.submitChange}
                         >
                             Sauvegarder
                         </Button>
@@ -122,7 +166,16 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                                 </Button>
                             </Link>
                         </Grid>
-                        
+                        <Snackbar open={this.state.openSnackError} autoHideDuration={6000} onClose={this.handleSnackErrorClose}>
+                            <Alert onClose={this.handleSnackErrorClose} severity="error">
+                                Echec de la mise à jour des données
+                            </Alert>
+                        </Snackbar>
+                        <Snackbar open={this.state.openSnackSuccess} autoHideDuration={6000} onClose={this.handleSnackSuccessClose}>
+                            <Alert onClose={this.handleSnackSuccessClose} severity="success">
+                                Mise à jour des données réussite
+                            </Alert>
+                        </Snackbar>
                     </Grid>
                 </Grid>
             </Form>

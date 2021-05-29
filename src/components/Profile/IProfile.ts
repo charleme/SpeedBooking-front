@@ -11,5 +11,7 @@ export interface IProfileStates{
     email:string;
     books: IBook[];
     language: string;
+    openSnackError: boolean;
+    openSnackSuccess: boolean;
 }
 
