@@ -94,6 +94,10 @@ class BookHelpers{
     genreWithScore(bookId:number):Promise<AxiosResponse<IGenreWithScore>>{
         return axios.get(BOOK_API_BASE_URL + GENRE_WITH_SCORE + bookId);
     }
+
+    isAuthor(bookId:number, userId:number):Promise<AxiosResponse<boolean>>{
+        return axios.get(BOOK_API_BASE_URL + "/isAuthor/" + userId + "&" + bookId)
+    }
 }
 
 export default new BookHelpers()

@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField } from "@material-ui/core";
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import React, {Component} from "react";
 import { ITextField } from "../Form/IFormTextField";
@@ -18,15 +18,17 @@ let textFields: ITextField[];
 let jsxTextFields:JSX.Element[];
 let deleteButton: JSX.Element = <></>;
 let cancelButton:JSX.Element = <></>;
-
+let jsxLanguageField: JSX.Element = <></>;
 
 class BookForm extends Component<IBookFormProps, IBookFormStates> {
     constructor(props: IBookFormProps) {
         super(props);
-        if(!this.props.book)
-            this.state = { titleBook:"", firstChapter: "", imageBook: "", language: "", links: {}, summaryBook:"", genres: [], openDialog:false };
-        else
-            this.state = { titleBook: this.props.book.titleBook, 
+
+        this.state = { titleBook:"", firstChapter: "", imageBook: "", language: "", links: {}, summaryBook:"", genres: [], openDialog:false };
+
+        if(this.props.book)
+            this.setState({ 
+                titleBook: this.props.book.titleBook, 
                 firstChapter: this.props.book.firstChapter, 
                 imageBook: this.props.book.imageBook, 
                 language: this.props.book.language, 
@@ -34,11 +36,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                 summaryBook:this.props.book.titleBook, 
                 genres: [],
                 openDialog:false,
-            };
-
-        
-        this.initFields()
-        this.initButtons()
+            })
 
         this.changeTitleHandler.bind(this);
         this.changeImageBookHandler.bind(this);
@@ -52,31 +50,73 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         this.submit.bind(this);
     }
 
-    initFields(){
-        textFields=[
-            {name: "title", label:"Titre", onChange:this.changeTitleHandler, default:this.state.titleBook},
-            {name: "imageLink", label:"Lien de l'image de couverture", onChange:this.changeTitleHandler, default:this.state.imageBook},
-            {name: "summaryBook", label: "Résumé", onChange:this.changeSummaryHandler, multiline: true, row: 5, default:this.state.summaryBook},
-            {name: "firstChapter", label: "Premier Chapitre", onChange:this.changeSummaryHandler, multiline: true, row: 20, default:this.state.firstChapter},
-        ];
+    componentDidMount = () => {
+        
+        if(this.props.book)
+            this.setState({ 
+                titleBook: this.props.book.titleBook, 
+                firstChapter: this.props.book.firstChapter, 
+                imageBook: this.props.book.imageBook, 
+                language: this.props.book.language, 
+                links: this.props.book.links, 
+                summaryBook:this.props.book.titleBook, 
+                genres: [],
+                openDialog:false,
+            })
+        
+        
+    }
 
-        jsxTextFields = textFields.map(field =>
-            <Grid item xs={12}>
-                <TextField
-                    onChange={field.onChange}
-                    autoComplete={(field.autocomplete != undefined) ? field.autocomplete : ""}
-                    name={field.name}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id={field.name}
-                    label={field.label}
-                    defaultValue={(field.default != undefined) ? field.default : ""}
-                    multiline={(field.multiline != undefined) ? field.multiline : false}
-                    rows={field.row}                  
+    initFields(){
+        if(this.props.book){
+            textFields=[
+                {name: "title", label:"Titre", onChange:this.changeTitleHandler, default:this.props.book.titleBook},
+                {name: "imageLink", label:"Lien de l'image de couverture", onChange:this.changeTitleHandler, default:this.props.book.imageBook},
+                {name: "summaryBook", label: "Résumé", onChange:this.changeSummaryHandler, multiline: true, row: 5, default:this.props.book.summaryBook},
+                {name: "firstChapter", label: "Premier Chapitre", onChange:this.changeSummaryHandler, multiline: true, row: 20, default:this.props.book.firstChapter},
+            ];
+
+            jsxTextFields = textFields.map(field =>
+                <Grid item xs={12}>
+                    <TextField
+                        onChange={field.onChange}
+                        autoComplete={(field.autocomplete != undefined) ? field.autocomplete : ""}
+                        name={field.name}
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id={field.name}
+                        label={field.label}
+                        defaultValue={(field.default != undefined) ? field.default : ""}
+                        multiline={(field.multiline != undefined) ? field.multiline : false}
+                        rows={field.row}                  
+                    />
+                </Grid>
+            )
+            jsxLanguageField = (
+                <Autocomplete
+                    id="language"
+                    options={Object.keys(locales)}
+                    getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
+                    style={{ width: '100%' }}
+                    renderInput={(params) => <TextField {...params} label="Langue" variant="outlined" />}
+                    onChange={this.changeLanguageHandler}
+                    defaultValue={(this.props.book)? this.props.book.language : ""}
                 />
-            </Grid>
-        )
+            );
+        }else{
+            jsxTextFields = [
+                <Grid item xs={12}>
+                    <CircularProgress />
+                </Grid>
+            ]
+
+            jsxLanguageField = (
+                <Grid item xs={12}>
+                    <CircularProgress />
+                </Grid>
+            );
+        }
     }
 
     initButtons = () =>{
@@ -154,7 +194,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
     submit = () => {
         const book:IBook = {
             titleBook: this.state.titleBook,
-            imageBook: this.state.titleBook,
+            imageBook: this.state.imageBook,
             language: this.state.language,
             links: this.state.links,
             summaryBook: this.state.summaryBook,
@@ -165,21 +205,16 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
     }
 
     render() {
+
+        this.initFields()
+        this.initButtons()
         return (
             <div>
                 <Grid container spacing={2}  alignItems="center">
                     {jsxTextFields}
                 
                     <Grid item xs={12}>
-                        <Autocomplete
-                            id="language"
-                            options={Object.keys(locales)}
-                            getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
-                            style={{ width: '100%' }}
-                            renderInput={(params) => <TextField {...params} label="Langue" variant="outlined" />}
-                            onChange={this.changeLanguageHandler}
-                            defaultValue={this.state.language}
-                        />
+                        {jsxLanguageField}
                     </Grid>
                     <Grid item xs={12}>
                         <Autocomplete
