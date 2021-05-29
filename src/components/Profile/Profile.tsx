@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import { IProfileProps, IProfileStates} from "./IProfile";
-import {colors} from "../../default_color";
-import {mockUser} from "../../data_interface/IUser"
-import {mockBook} from "../../data_interface/IBook"
+import IBook from "../../data_interface/IBook"
 import { ITextField } from "../Form/IFormTextField";
-
+import * as locales from '@material-ui/core/locale';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 
@@ -14,14 +12,15 @@ import {
     TextField
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { genres } from "../../genres";
-import IGenre from "../../data_interface/IGenre";
-import BooksDisplay from "../Books/BooksDisplay";
-import * as locales from '@material-ui/core/locale';
 import Form from "../Form/Form";
 import {withRouter, Link} from "react-router-dom"
+import UserHelpers from "../../helpers/UserHelpers";
+import FormTextField from "../Form/FormTextField";
+import BooksDisplay from "../Books/BooksDisplay";
+import IUser from "../../data_interface/IUser";
 
-let textFields: ITextField[];
+let currentUser: IUser;
+let textFields: ITextField[] = [];
 let jsxTextFields:JSX.Element[];
 
 /**
@@ -32,46 +31,28 @@ class Profile extends Component<IProfileProps, IProfileStates> {
     constructor(props:IProfileProps) {
         super(props);
         this.state = { 
-            userName: mockUser.username,
-            email: mockUser.email,
-            genres: [],
-            books: [mockBook],
-            language: (mockUser.languages) ? mockUser.languages : ""
+            userName: "",
+            email: "",
+            books: [],
+            language: ""
         };
-        this.initiateFields();
-
-
+        
         this.changeUsernameHandler.bind(this);
         this.changeEmailHandler.bind(this);
     }
 
-    initiateFields(){
-        textFields = [
-            {name:"username", label:"Login", autocomplete:"username", onChange:this.changeUsernameHandler, default: this.state.userName},
-            {name:"email", label:"Adresse Mail", autocomplete:"email", onChange:this.changeUsernameHandler, default: this.state.email},
-        ]
-
-        jsxTextFields = textFields.map(field => 
-            
-                <Grid item xs={12}>
-                    <TextField
-                        onChange={field.onChange}
-                        autoComplete={field.autocomplete}
-                        name={field.name}
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id={field.name}
-                        label={field.label}
-                        defaultValue={field.default}                  
-                    />
-                </Grid>
-            
-            )
-    }
-
-    changeGenreHandler = (event: any, newValues: IGenre[]) => {       
-        this.setState({genres: newValues})
+    componentDidMount = () => {
+        const connectedUserId = localStorage.getItem("id")
+        if(connectedUserId !== null){
+            UserHelpers.getUserById(parseInt(connectedUserId)).then((response) => {
+                currentUser = response.data;
+                this.setState({userName: currentUser.username, language: currentUser.languages, email: currentUser.email});
+            })
+            UserHelpers.getWrittenBooks(parseInt(connectedUserId)).then((response) => {
+                const books: IBook[] = response.data;
+                this.setState({books: books});
+            })
+        }
     }
 
     changeUsernameHandler = (event:any) => {
@@ -79,18 +60,28 @@ class Profile extends Component<IProfileProps, IProfileStates> {
     }
 
     changeEmailHandler = (event:any) => {
-        this.setState({userName: event.target.value});
+        this.setState({email: event.target.value});
     }
 
     changeLanguagesHandler = (event:any) => {
         this.setState({language: event.target.value})
     }
 
+    setFieldData(){
+        textFields = [
+            {name:"username", label:"Login", autocomplete:"username", onChange:this.changeUsernameHandler, value: this.state.userName},
+            {name:"email", label:"Adresse Mail", autocomplete:"email", onChange:this.changeEmailHandler, value: this.state.email},
+        ]
+    }
+
     render() {
+        {this.setFieldData()}
         return (
             <Form title="Mon Profil" width={50}>
                 <Grid container spacing={2}  alignItems="center">
-                    {jsxTextFields}
+                    {textFields.map(field=>(
+                        <FormTextField fieldInformation={field} />
+                    ))}
                     <Grid item xs={12}>
                         <Autocomplete
                             id="language"
@@ -99,25 +90,7 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                             style={{ width: '100%' }}
                             renderInput={(params) => <TextField {...params} label="Langue" variant="outlined" />}
                             onChange={this.changeLanguagesHandler}
-                            defaultValue={this.state.language}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Autocomplete
-                            multiple
-                            id="tags-outlined"
-                            options={genres}
-                            getOptionLabel={(option) => option.nameGenre}
-                            filterSelectedOptions
-                            onChange={this.changeGenreHandler}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    variant="outlined"
-                                    label="Genres Favoris"
-                                    placeholder="Favorite genres"
-                                />
-                            )}
+                            value={this.state.language}
                         />
                     </Grid>
                 </Grid>

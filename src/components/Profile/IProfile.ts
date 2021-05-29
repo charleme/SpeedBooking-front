@@ -9,7 +9,6 @@ export interface IProfileProps extends RouteComponentProps{
 export interface IProfileStates{
     userName: string;
     email:string;
-    genres?: IGenre[];
     books: IBook[];
     language: string;
 }

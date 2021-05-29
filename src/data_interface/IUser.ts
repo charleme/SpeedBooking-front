@@ -7,7 +7,7 @@ export default interface IUser{
     email: string;
     password: string;
     genres?: Record<string, number>;
-    languages: string | null;
+    languages: string;
 }
 
 export const mockUser:IUser = {

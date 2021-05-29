@@ -2,7 +2,7 @@ import React from "react";
 import axios, { AxiosResponse } from "axios";
 import IUser from "../data_interface/IUser";
 import { IDelete } from "../data_interface/IResponse";
-import { IBookWithProgress } from "../data_interface/IBook";
+import IBook, { IBookWithProgress } from "../data_interface/IBook";
 
 const USER_API_BASE_URL = "http://localhost:8080/api/user"
 
@@ -38,6 +38,10 @@ class UserHelpers{
 
     isUserPassword(userId:number, password: string): Promise<AxiosResponse<boolean>>{
         return axios.get(USER_API_BASE_URL + "/isUserPassword/" + userId + "&" + password);
+    }
+
+    getWrittenBooks(userId: number): Promise<AxiosResponse<IBook[]>>{
+        return axios.get(USER_API_BASE_URL + "/getWrittenBooks/" + userId);
     }
 }
 

@@ -20,6 +20,7 @@ class FormTextField extends Component<IFormTextFieldProps, IFormTextFieldStates>
                     id={this.props.fieldInformation.name}
                     label={this.props.fieldInformation.label}
                     defaultValue={(this.props.fieldInformation.default != undefined) ? this.props.fieldInformation.default : ""}
+                    value={(this.props.fieldInformation.value != undefined) ? this.props.fieldInformation.value : undefined}
                     multiline={(this.props.fieldInformation.multiline != undefined) ? this.props.fieldInformation.multiline : false}
                     rows={this.props.fieldInformation.row}
                     type={(this.props.fieldInformation.password) ? "password" : undefined}                  

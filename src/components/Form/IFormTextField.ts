@@ -15,4 +15,5 @@ export interface ITextField{
     multiline?:boolean;
     row?:number;
     password?: boolean;
+    value?:string;
 }
