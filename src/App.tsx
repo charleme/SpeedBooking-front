@@ -16,6 +16,7 @@ import ConnectedHomePage from './containers/ConnectedHomePage/ConnectedHomePage'
 import CreateBookPage from './containers/CreateBookPage/CreateBookPage';
 import EditBookPage from './containers/EditBookPage/EditBookPage';
 import EditPasswordPage from './containers/EditPasswordPage/EditPasswordPage';
+import Authentication from './containers/Authentication/authentication';
 
 const theme = createMuiTheme(
 	colors.theme
@@ -26,7 +27,7 @@ function App() {
 
 
 	useEffect(() =>{
-		localStorage.setItem("id", "1") // User 1 connected
+		//localStorage.setItem("id", "1") // User 1 connected
 		//localStorage.removeItem("id")  // nobody connected
 
 		const currentUserId:number|null  = (localStorage.getItem("id") !== null) ? Number(localStorage.getItem("id")) : null ;
@@ -45,6 +46,7 @@ function App() {
 							<Route path ="/" exact component = {Home}></Route>
 							<Route path = "/signup" component = {SignUp}></Route>
 							<Route path = "/request" component = {RequestTest}></Route>
+							<Route path = "/signin" component = {Authentication}></Route>
 						</Switch>
 					)
 					:(
