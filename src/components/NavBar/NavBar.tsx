@@ -67,6 +67,7 @@ class NavBar extends Component<INavBarProps, {}> {
 
     signOut = () => {
         localStorage.removeItem("id")
+        document.location.href = "/";
     }
 
     render() {
