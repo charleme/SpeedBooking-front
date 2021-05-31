@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { CircularProgress, Grid } from "@material-ui/core";
 import React, {Component} from "react";
 import IBook, { mockBook } from "../../data_interface/IBook";
 import { colors } from "../../default_color";
@@ -66,7 +66,14 @@ class EditBook extends Component<IEditBookProps, IEditBookStates> {
 
         return (
             <Form title="Modifier mon livre" width={60}>
-                <BookForm onSubmitHandler={this.onSubmitHandler} edit={true} book={this.state.book}/>
+                {
+                    (this.state.book) ? (
+                    <BookForm onSubmitHandler={this.onSubmitHandler} edit={true} book={this.state.book}/>
+                        ): (
+                            <CircularProgress />
+                        )
+                }
+                
             </Form>
         );
     }
