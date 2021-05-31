@@ -75,7 +75,7 @@ class ConnectionForm extends React.Component<any, IState> {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label="Adresse mail"
                                     autoFocus
                                 />
                             </Grid>
@@ -86,7 +86,7 @@ class ConnectionForm extends React.Component<any, IState> {
                                     required
                                     fullWidth
                                     id="password"
-                                    label="Password"
+                                    label="Mot de passe"
                                     name="password"
                                     autoComplete="current-password"
                                     type="password"

@@ -126,7 +126,7 @@ export default class SignUp extends React.Component<any, IState>{
                                 required
                                 fullWidth
                                 id="username"
-                                label="Username"
+                                label="Nom d'utilisateur"
                                 autoFocus
                             />
                         </Grid>
@@ -137,7 +137,7 @@ export default class SignUp extends React.Component<any, IState>{
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                label="Adresse mail"
                                 name="email"
                                 autoComplete="email"
                             />
@@ -150,7 +150,7 @@ export default class SignUp extends React.Component<any, IState>{
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label="Mot de passe"
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
@@ -164,7 +164,7 @@ export default class SignUp extends React.Component<any, IState>{
                                 required
                                 fullWidth
                                 name="confirm-password"
-                                label="Confirm your password"
+                                label="Confirmation de votre mot de passe"
                                 type="password"
                                 id="confirm-password"
                             />
@@ -175,7 +175,7 @@ export default class SignUp extends React.Component<any, IState>{
                                 options={Object.keys(locales)}
                                 getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
                                 style={{ width: '100%' }}
-                                renderInput={(params) => <TextField {...params} label="Language" variant="outlined" />}
+                                renderInput={(params) => <TextField {...params} label="Langue" variant="outlined" />}
                                 onChange={this.changeLanguagesHandler}
                             />
                         </Grid>
@@ -192,8 +192,8 @@ export default class SignUp extends React.Component<any, IState>{
                                     <TextField
                                         {...params}
                                         variant="outlined"
-                                        label="Favorite genres"
-                                        placeholder="Favorite genres"
+                                        label="Genres favoris"
+                                        placeholder="Genres favoris"
                                     />
                                 )}
                             />
