@@ -1,9 +1,9 @@
 import React from 'react';
-import Container from "@material-ui/core/Container";
+
 import { Button, TextField, Grid, Link, Snackbar } from "@material-ui/core";
 import {colors} from "../../default_color";
 import AuthentificationHelpers from "../../helpers/AuthentificationHelpers";
-import {Alert, Autocomplete} from "@material-ui/lab";
+import {Alert} from "@material-ui/lab";
 
 interface IState {
     id_user?: number;
@@ -106,7 +106,7 @@ class ConnectionForm extends React.Component<any, IState> {
                                                 color="primary"
                                                 onClick={this.connectUser}
                                             >
-                                            S'inscrire
+                                            Se connecter
                                             </Button>
                                         </Grid>    
                             </Grid>
@@ -115,7 +115,7 @@ class ConnectionForm extends React.Component<any, IState> {
                                     <Link   href="http://localhost:3000/signup"
                                             variant="body2"
                                             style={{color:colors.orangeButton}}>
-                                            Aucun Compte ? Inscris toi
+                                            Vous n'avez aucun compte ? Inscrivez-vous
                                     </Link>
                                 </Grid>
                             </Grid>

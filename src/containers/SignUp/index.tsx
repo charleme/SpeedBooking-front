@@ -215,7 +215,7 @@ export default class SignUp extends React.Component<any, IState>{
                                 color="primary"
                                 onClick={this.createUser}
                             >
-                                Sign Up
+                                S'inscrire
                             </Button>
                         </Grid>
                     </Grid>
@@ -224,7 +224,7 @@ export default class SignUp extends React.Component<any, IState>{
                             <Link href="http://localhost:3000/signin"
                                   variant="body2"
                                   style={{color:colors.orangeButton}}>
-                                Already have an account? Sign in
+                                Vous avez déjà un compte ? Connectez-vous
                             </Link>
                         </Grid>
                     </Grid>
