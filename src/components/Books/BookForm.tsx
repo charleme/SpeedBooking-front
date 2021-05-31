@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from "react-router-dom";
 import IBook from "../../data_interface/IBook";
+import BookHelpers from "../../helpers/BookHelpers";
 
 let textFields: ITextField[];
 let jsxTextFields:JSX.Element[];
@@ -76,52 +77,37 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                 {name: "firstChapter", label: "Premier Chapitre", onChange:this.changeSummaryHandler, multiline: true, row: 20, default:this.props.book.firstChapter},
             ];
 
-            jsxTextFields = textFields.map(field =>
-                <Grid item xs={12}>
-                    <TextField
-                        onChange={field.onChange}
-                        autoComplete={(field.autocomplete != undefined) ? field.autocomplete : ""}
-                        name={field.name}
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id={field.name}
-                        label={field.label}
-                        defaultValue={(field.default != undefined) ? field.default : ""}
-                        multiline={(field.multiline != undefined) ? field.multiline : false}
-                        rows={field.row}                  
-                    />
-                </Grid>
-            )
-            jsxLanguageField = (
-                <Autocomplete
-                    id="language"
-                    options={Object.keys(locales)}
-                    getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
-                    style={{ width: '100%' }}
-                    renderInput={(params) => <TextField {...params} label="Langue" variant="outlined" />}
-                    onChange={this.changeLanguageHandler}
-                    defaultValue={(this.props.book)? this.props.book.language : ""}
-                />
-            );
+            
         }else{
-            jsxTextFields = [
-                <Grid item xs={12}>
-                    <CircularProgress />
-                </Grid>
-            ]
-
-            jsxLanguageField = (
-                <Grid item xs={12}>
-                    <CircularProgress />
-                </Grid>
-            );
+            textFields=[
+                {name: "title", label:"Titre", onChange:this.changeTitleHandler},
+                {name: "imageLink", label:"Lien de l'image de couverture", onChange:this.changeTitleHandler},
+                {name: "summaryBook", label: "Résumé", onChange:this.changeSummaryHandler, multiline: true, row: 5},
+                {name: "firstChapter", label: "Premier Chapitre", onChange:this.changeSummaryHandler, multiline: true, row: 20,},
+            ];
         }
+
+        jsxTextFields = textFields.map(field =>
+            <Grid item xs={12}>
+                <TextField
+                    onChange={field.onChange}
+                    autoComplete={(field.autocomplete !== undefined) ? field.autocomplete : ""}
+                    name={field.name}
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id={field.name}
+                    label={field.label}
+                    defaultValue={(field.default !== undefined) ? field.default : ""}
+                    multiline={(field.multiline !== undefined) ? field.multiline : false}
+                    rows={field.row}                  
+                />
+            </Grid>
+        )
     }
 
     initButtons = () =>{
-        if(this.props.edit)
-            deleteButton = (
+        deleteButton = (this.props.edit) ? (
                 <div>
                     <Button
                         variant="outlined"
@@ -134,25 +120,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                     </Button>
                     
                 </div>
-                
-            );
-        else
-            cancelButton = (
-                <Link to="/profile" style={{textDecoration:"none"}}>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        size="medium"
-                        startIcon={<PersonIcon />}
-                    >
-                        Retourner au profil
-                    </Button>
-                </Link>
-            );
-    }
-
-    initDialog = () => {
-
+            ) : <></>;
     }
 
     changeGenreHandler = (event: any, newValues: IGenre[]) => {       
@@ -188,6 +156,19 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
     }
 
     deleteBook = () => {
+        if(this.props.book && this.props.book.idBook){
+            BookHelpers.deleteBook(this.props.book.idBook).then(res =>{
+                if(res.data.deleted)
+                    console.log("Suppression réussite")
+                else{
+                    console.error("Echecs de la suppression")
+                }
+                    
+            }).catch(error => {
+                console.error("Echecs de la suppression")
+            });
+        }
+
         this.setState({openDialog:false})
     }
 
@@ -214,7 +195,15 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                     {jsxTextFields}
                 
                     <Grid item xs={12}>
-                        {jsxLanguageField}
+                        <Autocomplete
+                            id="language"
+                            options={Object.keys(locales)}
+                            getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
+                            style={{ width: '100%' }}
+                            renderInput={(params) => <TextField {...params} label="Langue" variant="outlined" />}
+                            onChange={this.changeLanguageHandler}
+                            defaultValue={(this.props.book)? this.props.book.language : ""}
+                        />
                     </Grid>
                     <Grid item xs={12}>
                         <Autocomplete
@@ -247,7 +236,18 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                         >
                             Sauvegarder
                         </Button>
-                        {(this.props.edit) ? deleteButton : cancelButton}
+                        {(this.props.edit) ? deleteButton : <></>}
+                        
+                        <Link to="/profile" style={{textDecoration:"none"}}>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                size="medium"
+                                startIcon={<PersonIcon />}
+                            >
+                                Revenir au profil
+                            </Button>
+                        </Link>
                     </Grid>
                 </Grid>
                 {(this.props.edit) ? (
