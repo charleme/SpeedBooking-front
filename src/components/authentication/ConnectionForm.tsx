@@ -106,7 +106,7 @@ class ConnectionForm extends React.Component<any, IState> {
                                                 color="primary"
                                                 onClick={this.connectUser}
                                             >
-                                            Sign In
+                                            S'inscrire
                                             </Button>
                                         </Grid>    
                             </Grid>
@@ -115,13 +115,13 @@ class ConnectionForm extends React.Component<any, IState> {
                                     <Link   href="http://localhost:3000/signup"
                                             variant="body2"
                                             style={{color:colors.orangeButton}}>
-                                            Don't have an account? Sign up
+                                            Aucun Compte ? Inscris toi
                                     </Link>
                                 </Grid>
                             </Grid>
                             <Snackbar open={this.state.openSnackError} autoHideDuration={6000} onClose={this.handleSnackErrorClose}>
                                 <Alert onClose={this.handleSnackErrorClose} severity="error">
-                                    Your email or password is not correct. Please try again.
+                                    Votre mail et mot de passe sont incorrects.
                                 </Alert>
                             </Snackbar>
                         </Grid>
