@@ -12,7 +12,7 @@ interface IState {
     openSnackError: boolean;
 }
 
-export class ConnectionForm extends React.Component<any, IState> {
+class ConnectionForm extends React.Component<any, IState> {
     constructor(props:any){
         super(props);
         this.state = {
@@ -38,13 +38,15 @@ export class ConnectionForm extends React.Component<any, IState> {
     connectUser = (e: any) => {
         e.preventDefault();
         AuthentificationHelpers.authenticate(this.state.email, this.state.password).then(res => {
-            if (res.data.idUser) {
+            if (res.data && res.data.idUser) {
                 localStorage.setItem("id", res.data.idUser.toString());
                 document.location.href = "/";
             } else {
                 console.error("Your email or password is not correct. Please try again")
                 this.setState({openSnackError:true})
             }
+        }).catch(error => {
+            console.error("Erreur requete " + error.message +" "+ error.stack);
         })
     }
 
@@ -128,3 +130,4 @@ export class ConnectionForm extends React.Component<any, IState> {
         );
     }
 }
+export default ConnectionForm;
