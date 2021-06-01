@@ -47,6 +47,10 @@ class UserHelpers{
     editPassword(userId:number, password:string): Promise<AxiosResponse<IUser>>{
         return axios.put(USER_API_BASE_URL + "/editPassword/" + userId + "&" + password);
     }
+    
+    getTL(userId: number): Promise<AxiosResponse<IBook[]>>{
+        return axios.get(USER_API_BASE_URL + "/getTL/" + userId);
+    }
 }
 
 export default new UserHelpers()
