@@ -5,12 +5,18 @@ import {colors} from "../../default_color";
 import UserHelpers from "../../helpers/UserHelpers";
 import IUser from "../../data_interface/IUser"
 
-export default class HeadBand extends React.Component{
+let contentUnlogged: JSX.Element;
+let contentLogged:JSX.Element;
+export default class HeadBand extends React.Component<any, any>{
+    constructor(props:any){
+        super(props);
 
-    render() {
-        let contentUnlogged;
+        this.state = {isLogged: false}
+        this.getLoggedContent()
+    }
+
+    getLoggedContent = () => {
         const currentUserId:number|null  = (localStorage.getItem("id") !== null) ? Number(localStorage.getItem("id")) : null ;
-        console.log(currentUserId)
         if(currentUserId === null){
             contentUnlogged = <Grid
                 style={{height:'100%',  width:'330px'}}
@@ -37,7 +43,7 @@ export default class HeadBand extends React.Component{
                 const user:IUser = response.data
                 var randomColor = "#".concat(Math.floor(user.username.charCodeAt(0)*16777215).toString(16))
 
-                contentUnlogged = <Grid style={{height:'100%',  width:'330px'}}
+                contentLogged = <Grid style={{height:'100%',  width:'330px'}}
                                         container
                                         direction="row"
                                         justify="center"
@@ -49,9 +55,15 @@ export default class HeadBand extends React.Component{
                         <h4>{user.username}</h4>
                     </Link>
                 </Grid>
+                this.setState({isLogged:true})
             })
 
         }
+    }
+
+    render() {
+        
+        
 
         return (
             <Grid
@@ -64,7 +76,7 @@ export default class HeadBand extends React.Component{
                 <Link to="/">
                     <img src={"logo.png"}  alt="SpeedBooking"/>
                 </Link>
-                {contentUnlogged}
+                {this.state.isLogged ? contentLogged : contentUnlogged}
             </Grid>
         );
     }
