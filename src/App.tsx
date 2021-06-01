@@ -17,6 +17,7 @@ import CreateBookPage from './containers/CreateBookPage/CreateBookPage';
 import EditBookPage from './containers/EditBookPage/EditBookPage';
 import EditPasswordPage from './containers/EditPasswordPage/EditPasswordPage';
 import Authentication from './containers/Authentication/authentication';
+import ReadBookPage from './containers/ReadBookPage/ReadBookPage';
 
 const theme = createMuiTheme(
 	colors.theme
@@ -60,6 +61,7 @@ function App() {
 							<Route path = "/createBook" component = {CreateBookPage}></Route>
 							<Route path = "/editBook" component = {EditBookPage}></Route>
 							<Route path = "/editPassword" component = {EditPasswordPage}></Route>
+							<Route path = "/readBook" component = {ReadBookPage}></Route>
 						</Switch>
 					)}
 				</Router>
