@@ -23,6 +23,9 @@ class UserHelpers{
     updateUser(user: IUser): Promise<AxiosResponse<IUser>>{
         return axios.put(USER_API_BASE_URL + "/updateUser", user);
     }
+    updateUserGenre(user_id: number, book_id: any): Promise<AxiosResponse<IUser>>{
+        return axios.put(USER_API_BASE_URL + "/updateUser/" + user_id + "/" + book_id);
+    }
 
     resetUserGenres(userId:number, list: string[]): Promise<AxiosResponse<IUser>> {
         return axios.put(USER_API_BASE_URL + "/resetUserGenres/" + userId, list);
