@@ -12,7 +12,7 @@ export interface IBookFormStates{
     language: string;
     imageBook: string;
     summaryBook: string;
-    firstChapter?:  string;
+    firstChapter:  string;
     links: Record<string, string>;
     genres: IGenre[];
     openDialog:boolean;

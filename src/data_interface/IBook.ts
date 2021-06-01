@@ -8,7 +8,7 @@ export default interface IBook{
     language: string;
     imageBook: string;
     summaryBook: string;
-    firstChapter?: string; //Optionnal because big data so some request don't need to send this data
+    firstChapter: string; //Optionnal because big data so some request don't need to send this data
     audienceTag?: Record<string, number>;
     links: Record<string, string>;
     id_author?:number;

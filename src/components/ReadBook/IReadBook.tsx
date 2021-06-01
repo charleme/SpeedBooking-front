@@ -5,5 +5,10 @@ export interface IReadBookProps{
 }
 
 export interface IReadBookStates{
-    
+
+}
+
+export interface ILink{
+    name:string;
+    url:string;
 }
