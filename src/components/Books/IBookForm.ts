@@ -17,3 +17,8 @@ export interface IBookFormStates{
     genres: IGenre[];
     openDialog:boolean;
 }
+
+export interface ILink{
+    name: string;
+    url: string;
+}
