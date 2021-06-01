@@ -23,7 +23,7 @@ export class BookCard extends Component<IProps, any> {
             <div>
                 <img src={imageBook} width="150px" height="225px"/>
                 <h3>{titleBook}</h3>
-                <div>{summary}</div>
+                <div style={{overflow: "auto", height:"200px"}}>{summary}</div>
             </div>
         );
     }

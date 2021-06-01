@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PageWithNav from '../../components/NavBar/PageWithNav';
-import {Button, Grid, TextField} from "@material-ui/core";
+import {Button, Grid, TextField, Zoom} from "@material-ui/core";
 import SettingsIcon from '@material-ui/icons/Settings';
 import {colors} from "../../default_color";
 import {genres} from "../../genres";
@@ -61,7 +61,8 @@ class SettingsPage extends Component<any, IState> {
                 </Button>
             </Grid>
 
-        const genreSelector = <Grid container xs={12}
+        const genreSelector = <Zoom in={this.state.showGenreSelector}>
+            <Grid container xs={12}
                                     direction="column"
                                     justify="center"
                                     alignItems="center"
@@ -92,7 +93,8 @@ class SettingsPage extends Component<any, IState> {
                                         onClick={this.confirm}>
                                     Confirm
                                 </Button>
-        </Grid>
+            </Grid>
+        </Zoom>
 
         const resetArea = ( !this.state.showGenreSelector ? button : genreSelector)
         return (

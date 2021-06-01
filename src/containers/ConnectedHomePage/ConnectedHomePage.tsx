@@ -3,7 +3,7 @@ import PageWithNav from "../../components/NavBar/PageWithNav";
 import Form from "../../components/Form/Form";
 import IBook from "../../data_interface/IBook";
 import UserHelpers from "../../helpers/UserHelpers";
-import {CircularProgress, Grid, IconButton} from "@material-ui/core";
+import {CircularProgress, Grid, IconButton, Slide} from "@material-ui/core";
 import {colors} from "../../default_color";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
@@ -92,11 +92,13 @@ class ConnectedHomePage extends Component<any, IState> {
         let page
         if (this.state.listBook[this.state.currentBookId] !== undefined) {
             page = <div>
-                <Form title={"Selection"}>
-                    <BookCard bookImg={this.state.listBook[this.state.currentBookId].imageBook}
-                              bookName={this.state.listBook[this.state.currentBookId].titleBook}
-                              bookSummary={this.state.listBook[this.state.currentBookId].summaryBook}/>
-                </Form>
+                <Slide direction="right" in={true} mountOnEnter unmountOnExit>
+                    <Form title={"Selection"}>
+                            <BookCard bookImg={this.state.listBook[this.state.currentBookId].imageBook}
+                                      bookName={this.state.listBook[this.state.currentBookId].titleBook}
+                                      bookSummary={this.state.listBook[this.state.currentBookId].summaryBook}/>
+                    </Form>
+                </Slide>
                 <Grid xs={12}
                       container
                       direction="row"
