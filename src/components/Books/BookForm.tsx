@@ -172,7 +172,8 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         this.setState({openDialog:false})
     }
 
-    submit = () => {
+    submit = (e:any) => {
+        e.preventDefault();
         const book:IBook = {
             titleBook: this.state.titleBook,
             imageBook: this.state.imageBook,
@@ -207,6 +208,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                     </Grid>
                     <Grid item xs={12}>
                         <Autocomplete
+                            aria-required
                             multiple
                             id="tags-outlined"
                             options={genres}
@@ -233,6 +235,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                             size="medium"
                             startIcon={<SaveIcon />}
                             onClick={this.submit}
+                            type="submit"
                         >
                             Sauvegarder
                         </Button>

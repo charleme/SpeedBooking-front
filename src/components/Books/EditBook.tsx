@@ -58,7 +58,11 @@ class EditBook extends Component<IEditBookProps, IEditBookStates> {
     }
 
     onSubmitHandler =(book:IBook) =>{
-        
+        BookHelpers.updateBook(book).then(res => {
+            console.log("Modification Réussite")
+        }).catch(error =>{
+            console.error(error);
+        })
     }
     
 
