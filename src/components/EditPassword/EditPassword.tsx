@@ -50,7 +50,7 @@ class EditPassword extends Component<IEditPasswordProps, IEditPasswordStates> {
                 ))}
                 <Grid style={{marginTop:"20px"}} container justify="space-around"  alignItems="center" spacing={0}>
                     <Grid container direction="row" justify="space-around" spacing={0}>
-                        <Button style={{color:"white"}} variant="contained" color="primary">Modifier le mot de passe</Button>
+                        <Button type="submit" style={{color:"white"}} variant="contained" color="primary">Modifier le mot de passe</Button>
                         <Link style={{textDecoration:"none"}} to="/profile">
                             <Button variant="outlined" color="primary">Revenir au profil</Button>
                         </Link>

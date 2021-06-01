@@ -92,7 +92,8 @@ class Profile extends Component<IProfileProps, IProfileStates> {
         this.setState({openSnackSuccess:false})
     }
 
-    submitChange = () => {
+    submitChange = (e:React.MouseEvent<any>) => {
+        e.preventDefault();
         currentUser.username = this.state.userName;
         currentUser.email = this.state.email;
         currentUser.languages = this.state.language;
@@ -149,6 +150,7 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                             size="medium"
                             startIcon={<SaveIcon />}
                             onClick={this.submitChange}
+                            type="submit"
                         >
                             Sauvegarder
                         </Button>
