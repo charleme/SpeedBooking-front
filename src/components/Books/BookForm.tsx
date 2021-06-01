@@ -225,6 +225,12 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                             )}
                         />
                     </Grid>
+                    {this.state.links.map((genre, index) => (
+                        <div>
+                            <Grid item xs={5}><TextField label="Nom du magasin" name="marketName" value={genre.name} required/></Grid>
+                            <Grid item xs={5}><TextField label="Url" name="url" value={genre.url} required/></Grid>
+                        </div>
+                    ))}
                 </Grid>
                 <Grid style={{marginTop:"20px"}} container justify="space-around"  alignItems="center" spacing={0}>
                     <Grid style={{marginTop:"20px"}} container direction="row" justify="space-around" spacing={0}>
