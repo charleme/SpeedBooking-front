@@ -23,7 +23,8 @@ class FormTextField extends Component<IFormTextFieldProps, IFormTextFieldStates>
                     value={(this.props.fieldInformation.value != undefined) ? this.props.fieldInformation.value : undefined}
                     multiline={(this.props.fieldInformation.multiline != undefined) ? this.props.fieldInformation.multiline : false}
                     rows={this.props.fieldInformation.row}
-                    type={(this.props.fieldInformation.password) ? "password" : undefined}                  
+                    type={(this.props.fieldInformation.password) ? "password" : undefined} 
+                    error={(this.props.fieldInformation.error) ? this.props.fieldInformation.error : undefined}                  
                 />
             </Grid>
         );

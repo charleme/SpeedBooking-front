@@ -16,4 +16,5 @@ export interface ITextField{
     row?:number;
     password?: boolean;
     value?:string;
+    error?:boolean;
 }
