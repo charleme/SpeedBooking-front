@@ -20,10 +20,13 @@ export default class LikedBookPage extends Component<any, IStates> {
 
     componentDidMount() {
         this.setState({isLoading: true})
-        UserHelpers.getUserReadBooks(1).then(res => {
-            this.setState({listBook: res.data})
-            this.setState({isLoading: false})
-        })
+        const currentUserId = Number(localStorage.getItem("id"))
+        if(currentUserId !== null){
+            UserHelpers.getUserReadBooks(currentUserId).then(res => {
+                this.setState({listBook: res.data})
+                this.setState({isLoading: false})
+            })
+        }
     }
 
     render() {
