@@ -26,7 +26,7 @@ function App() {
 
 
 	useEffect(() =>{
-		localStorage.setItem("id", "1") // User 1 connected
+		localStorage.setItem("id", "12") // User 1 connected
 		//localStorage.removeItem("id")  // nobody connected
 
 		const currentUserId:number|null  = (localStorage.getItem("id") !== null) ? Number(localStorage.getItem("id")) : null ;
