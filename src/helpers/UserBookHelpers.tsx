@@ -16,7 +16,7 @@ class UserBookHelpers{
         return axios.put(USER_BOOK_API_BASE_URL + UPDATE_PROGRESS + idUser + "&" + idBook + "&" + progressValue);
     }
 
-    createUserBook(idUser: number, idBook: number): Promise<AxiosResponse<ICreated>>{
+    createUserBook(idUser: number, idBook: any): Promise<AxiosResponse<ICreated>>{
         return axios.post(USER_BOOK_API_BASE_URL + CREATE_USER_BOOK + idUser + "&" + idBook);
     }
 }

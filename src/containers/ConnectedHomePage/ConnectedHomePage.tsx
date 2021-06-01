@@ -3,11 +3,13 @@ import PageWithNav from "../../components/NavBar/PageWithNav";
 import Form from "../../components/Form/Form";
 import IBook from "../../data_interface/IBook";
 import UserHelpers from "../../helpers/UserHelpers";
-import {Grid, IconButton} from "@material-ui/core";
+import {CircularProgress, Grid, IconButton} from "@material-ui/core";
 import {colors} from "../../default_color";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import UserBookHelpers from "../../helpers/UserBookHelpers";
+import BookHelpers from "../../helpers/BookHelpers";
+import {BookCard} from "../../components/BookCard";
 
 interface IState {
     isLoading: boolean,
@@ -34,58 +36,95 @@ class ConnectedHomePage extends Component<any, IState> {
     }
 
     componentDidMount() {
+        this.setState({isLoading: true})
         if (this.state.currentUserId !== null){
             UserHelpers.getTL(this.state.currentUserId).then(res => {
                 this.setState({
                         listBook: this.state.listBook.concat(res.data),
-                        criticalSize: this.state.listBook.length - 1
+                        criticalSize: res.data.length - 2
                     })
-                console.log(this.state.listBook)
-                console.log(this.state.currentUserId)
-                console.log(this.state.currentBookId)
             })
         }
+        this.setState({isLoading: false})
     }
 
     like() {
-        if(this.state.currentBookId === this.state.criticalSize && this.state.currentBookId !== undefined){
-
-            UserBookHelpers.createUserBook(this.state.currentUserId, this.state.listBook[this.state.currentBookId].idBook).then(res =>{
-                UserHelpers.getTL(this.state.currentUserId).then(res => {
-                    this.setState({
-                        listBook: this.state.listBook.concat(res.data)
+        if (this.state.listBook[this.state.currentBookId].idBook !== undefined) {
+            UserBookHelpers.createUserBook(this.state.currentUserId, this.state.listBook[this.state.currentBookId].idBook).then(res1 => {
+                    UserHelpers.updateUserGenre(this.state.currentUserId, this.state.listBook[this.state.currentBookId].idBook).then(res2 => {
+                                BookHelpers.likeBook(this.state.listBook[this.state.currentBookId].idBook, this.state.currentUserId).then(res3 => {
+                                    this.setState({currentBookId: this.state.currentBookId+1})
+                                    console.log("Done ! Yay !")
+                                })
                     })
+            })
+        }
+        if (this.state.currentBookId === this.state.criticalSize) {
+            UserHelpers.getTL(this.state.currentUserId).then(result => {
+                this.setState({
+                    listBook: [this.state.listBook[this.state.listBook.length-1], ...result.data],
+                    currentBookId: 0
                 })
             })
         }
-        this.setState({currentBookId: this.state.currentBookId+1})
+        console.log(this.state.listBook)
     }
 
     dislike() {
-        this.setState({currentBookId: this.state.currentBookId+1})
-        if(this.state.currentBookId === this.state.criticalSize){
-
+        if (this.state.listBook[this.state.currentBookId].idBook !== undefined) {
+            BookHelpers.dislikeBook(this.state.listBook[this.state.currentBookId].idBook, this.state.currentUserId).then(res => {
+                this.setState({currentBookId: this.state.currentBookId + 1})
+            })
         }
+        if(this.state.currentBookId === this.state.criticalSize){
+            UserHelpers.getTL(this.state.currentUserId).then(result => {
+                this.setState({
+                    listBook: [this.state.listBook[this.state.listBook.length-1], ...result.data],
+                    currentBookId: 0
+                })
+                console.log(this.state.currentBookId)
+            })
+        }
+        console.log(this.state.listBook)
     }
 
     render() {
-        return (
-            <PageWithNav selected = {1}>
+        let page
+        if (this.state.listBook[this.state.currentBookId] !== undefined) {
+            page = <div>
                 <Form title={"Selection"}>
-
+                    <BookCard bookImg={this.state.listBook[this.state.currentBookId].imageBook}
+                              bookName={this.state.listBook[this.state.currentBookId].titleBook}
+                              bookSummary={this.state.listBook[this.state.currentBookId].summaryBook}/>
                 </Form>
                 <Grid xs={12}
-                    container
-                    direction="row"
-                    justify="space-evenly"
-                    alignItems="center">
-                        <IconButton size="medium" onClick={this.dislike}>
-                            <ThumbDownIcon style={{ fontSize: 40, color:colors.red }}/>
-                        </IconButton>
-                        <IconButton size="medium" onClick={this.like}>
-                            <FavoriteIcon style={{fontSize: 40, color:colors.green}}/>
-                        </IconButton>
+                      container
+                      direction="row"
+                      justify="space-evenly"
+                      alignItems="center">
+                    <IconButton size="medium" onClick={this.dislike}>
+                        <ThumbDownIcon style={{fontSize: 40, color: colors.red}}/>
+                    </IconButton>
+                    <IconButton size="medium" onClick={this.like}>
+                        <FavoriteIcon style={{fontSize: 40, color: colors.green}}/>
+                    </IconButton>
                 </Grid>
+            </div>
+        }
+
+
+        return (
+            <PageWithNav selected = {1}>
+                {(!this.state.isLoading)
+                    ? page
+                    : <Grid container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                            style={{margin:"10% 0 10% 0"}}>
+                        <CircularProgress size={100}/>
+                    </Grid>
+                }
             </PageWithNav>
         );
     }

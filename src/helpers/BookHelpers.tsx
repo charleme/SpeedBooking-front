@@ -70,7 +70,7 @@ class BookHelpers{
      * @param userId id of the user
      * @returns audience tag updated
      */
-    likeBook(bookId: number, userId: number): Promise<AxiosResponse<Record<string, number>>>{
+    likeBook(bookId: any, userId: number): Promise<AxiosResponse<Record<string, number>>>{
         return axios.put(BOOK_API_BASE_URL + LIKE_BOOK + bookId + "&"+ userId);
     }
 
@@ -81,7 +81,7 @@ class BookHelpers{
      * @param userId id of the user
      * @returns audience tag updated
      */
-    dislikeBook(bookId: number, userId: number): Promise<AxiosResponse<Record<string, number>>>{
+    dislikeBook(bookId: any, userId: number): Promise<AxiosResponse<Record<string, number>>>{
         return axios.put(BOOK_API_BASE_URL + DISLIKE_BOOK + bookId +"&"+ userId);
     }
 
