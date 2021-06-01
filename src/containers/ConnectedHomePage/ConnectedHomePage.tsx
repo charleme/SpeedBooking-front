@@ -1,11 +1,14 @@
 import React, {Component} from "react"
 import PageWithNav from "../../components/NavBar/PageWithNav";
+import Form from "../../components/Form/Form";
 
 class ConnectedHomePage extends Component {
     render() {
         return (
             <PageWithNav selected = {1}>
-                home page for connected user
+                <Form title={"Selection"}>
+
+                </Form>
             </PageWithNav>
         );
     }
