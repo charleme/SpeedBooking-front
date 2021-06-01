@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import IBook from "../../data_interface/IBook";
+import BookHelpers from "../../helpers/BookHelpers";
 import Form from "../Form/Form";
 import BookForm from "./BookForm";
 import {ICreateBookProps, ICreateBookStates} from "./ICreateBook"
@@ -13,7 +14,11 @@ class CreateBook extends Component<ICreateBookProps, ICreateBookStates> {
     }
 
     onSubmitHandler =(book:IBook) =>{
-        console.log(book);
+        BookHelpers.createBook(book).then(res => {
+            console.log("Modification réussite")
+        }).catch(error => {
+            console.log(error)
+        })
     }
     
 
