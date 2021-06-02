@@ -41,7 +41,7 @@ export default class HeadBand extends React.Component<any, any>{
         }else{
             UserHelpers.getUserById(currentUserId).then((response) => {
                 const user:IUser = response.data
-                var randomColor = "#".concat(Math.floor(user.username.charCodeAt(0)*16777215).toString(16))
+                var randomColor = "#".concat(Math.floor((user.username.toLowerCase().charCodeAt(0)-97+user.username.toLowerCase().charCodeAt(1)-97)*(0xCCCCCC/50)).toString(16))
 
                 contentLogged = <Grid style={{height:'100%',  width:'330px'}}
                                         container
