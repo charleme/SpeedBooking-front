@@ -60,6 +60,7 @@ class EditBook extends Component<IEditBookProps, IEditBookStates> {
     onSubmitHandler =(book:IBook) =>{
         BookHelpers.updateBook(book).then(res => {
             console.log("Modification Réussite")
+            this.props.history.push("/profile")
         }).catch(error =>{
             console.error(error);
         })
