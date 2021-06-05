@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
 import PageWithNav from '../../components/NavBar/PageWithNav';
-import {Button, Grid, TextField, Zoom} from "@material-ui/core";
+import {Button, CircularProgress, Grid, TextField, Zoom} from "@material-ui/core";
 import SettingsIcon from '@material-ui/icons/Settings';
 import {colors} from "../../default_color";
-import {genres} from "../../genres";
 import IGenre from "../../data_interface/IGenre"
 import {Autocomplete} from "@material-ui/lab";
 import UserHelpers from "../../helpers/UserHelpers";
+import GenreHelpers from '../../helpers/GenreHelpers';
 
 interface IState{
     showGenreSelector: boolean;
     newGenres: string[];
+    genreList?:IGenre[];
 }
 
 class SettingsPage extends Component<any, IState> {
@@ -20,6 +21,13 @@ class SettingsPage extends Component<any, IState> {
             showGenreSelector: false,
             newGenres: [],
         }
+    }
+
+    componentDidMount = () => {
+        
+        GenreHelpers.getAllGenres().then(resp =>{
+            this.setState({genreList: resp.data})
+        })
     }
 
     showGenreSelector = () => {
@@ -61,7 +69,7 @@ class SettingsPage extends Component<any, IState> {
                 </Button>
             </Grid>
 
-        const genreSelector = <Zoom in={this.state.showGenreSelector}>
+        const genreSelector = (this.state.genreList) ? (<Zoom in={this.state.showGenreSelector}>
             <Grid container xs={12}
                                     direction="column"
                                     justify="center"
@@ -71,7 +79,7 @@ class SettingsPage extends Component<any, IState> {
                                     multiple
                                     size="small"
                                     id="tags-outlined"
-                                    options={genres}
+                                    options={this.state.genreList}
                                     getOptionLabel={(option) => option.nameGenre}
                                     filterSelectedOptions
                                     style={{width:"450px"}}
@@ -94,7 +102,7 @@ class SettingsPage extends Component<any, IState> {
                                     Confirm
                                 </Button>
             </Grid>
-        </Zoom>
+        </Zoom>) : (<CircularProgress color="primary"/>)
 
         const resetArea = ( !this.state.showGenreSelector ? button : genreSelector)
         return (

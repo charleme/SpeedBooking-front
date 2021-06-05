@@ -1,6 +1,7 @@
 import React from "react";
 import {
     Button,
+    CircularProgress,
     Grid,
     Link,
     TextField,
@@ -8,10 +9,10 @@ import {
 import {colors} from "../../default_color";
 import {Autocomplete} from "@material-ui/lab";
 import * as locales from '@material-ui/core/locale';
-import { genres } from "../../genres";
 import UserHelpers from "../../helpers/UserHelpers";
 import IUser from "../../data_interface/IUser";
 import IGenre from "../../data_interface/IGenre"
+import GenreHelpers from "../../helpers/GenreHelpers";
 
 interface IState{
     id_user?: number;
@@ -22,6 +23,7 @@ interface IState{
     genres: string[];
     languages: string | null;
     color: boolean;
+    genreList?: IGenre[];
 }
 
 
@@ -46,6 +48,15 @@ export default class SignUp extends React.Component<any, IState>{
         this.createUser = this.createUser.bind(this);
 
     }
+
+    componentDidMount = () => {
+        
+        GenreHelpers.getAllGenres().then(resp =>{
+            this.setState({genreList: resp.data})
+        })
+    }
+
+
     changeUsernameHandler = (event: any) => {
         this.setState({username: event.target.value});
     }
@@ -179,25 +190,31 @@ export default class SignUp extends React.Component<any, IState>{
                                 onChange={this.changeLanguagesHandler}
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <Autocomplete
-                                multiple
-                                size="small"
-                                id="tags-outlined"
-                                options={genres}
-                                getOptionLabel={(option) => option.nameGenre}
-                                filterSelectedOptions
-                                onChange={this.changeGenreHandler}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        variant="outlined"
-                                        label="Genres favoris"
-                                        placeholder="Genres favoris"
-                                    />
-                                )}
-                            />
-                        </Grid>
+                        {
+                        (this.state.genreList) ? (
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    aria-required
+                                    multiple
+                                    id="tags-outlined"
+                                    options={this.state.genreList}
+                                    getOptionLabel={(option) => option.nameGenre}
+                                    filterSelectedOptions
+                                    onChange={this.changeGenreHandler}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            variant="outlined"
+                                            label="Genres"
+                                            placeholder="Book genres"
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                        ) : (
+                            <CircularProgress color="primary"/>
+                        )
+                    }
                         <Grid item xs={12}>
 
                         </Grid>

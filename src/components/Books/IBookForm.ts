@@ -17,6 +17,7 @@ export interface IBookFormStates{
     links: ILink[];
     genres: IGenre[];
     openDialog:boolean;
+    genreList?: IGenre[];
 }
 
 export interface ILink{

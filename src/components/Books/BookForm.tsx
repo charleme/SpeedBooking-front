@@ -5,7 +5,6 @@ import { ITextField } from "../Form/IFormTextField";
 import { colors } from "../../default_color";
 import { IBookFormProps, IBookFormStates, ILink } from "./IBookForm";
 import * as locales from '@material-ui/core/locale';
-import { genres } from "../../genres";
 import IGenre from "../../data_interface/IGenre";
 
 import SaveIcon from '@material-ui/icons/Save';
@@ -14,6 +13,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Link, withRouter } from "react-router-dom";
 import IBook from "../../data_interface/IBook";
 import BookHelpers from "../../helpers/BookHelpers";
+import GenreHelpers from "../../helpers/GenreHelpers";
 
 let textFields: ITextField[];
 let jsxTextFields:JSX.Element[];
@@ -57,6 +57,13 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         this.handleClose.bind(this);
         this.deleteBook.bind(this);
         this.submit.bind(this);
+    }
+
+    componentDidMount = () => {
+        
+        GenreHelpers.getAllGenres().then(resp =>{
+            this.setState({genreList: resp.data})
+        })
     }
 
     initFields(){
@@ -242,25 +249,33 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                             value={this.state.language}
                         />
                     </Grid>
-                    <Grid item xs={12}>
-                        <Autocomplete
-                            aria-required
-                            multiple
-                            id="tags-outlined"
-                            options={genres}
-                            getOptionLabel={(option) => option.nameGenre}
-                            filterSelectedOptions
-                            onChange={this.changeGenreHandler}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    variant="outlined"
-                                    label="Genres"
-                                    placeholder="Book genres"
+                    {
+                        (this.state.genreList) ? (
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    aria-required
+                                    multiple
+                                    id="tags-outlined"
+                                    options={this.state.genreList}
+                                    getOptionLabel={(option) => option.nameGenre}
+                                    filterSelectedOptions
+                                    onChange={this.changeGenreHandler}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            variant="outlined"
+                                            label="Genres"
+                                            placeholder="Book genres"
+                                        />
+                                    )}
                                 />
-                            )}
-                        />
-                    </Grid>
+                            </Grid>
+                        ) : (
+                            <CircularProgress color="primary"/>
+                        )
+                    }
+                    
+                    
                     {this.state.links.map((genre, index) => (
                         <Grid item xs={12}>
                             <Grid container direction="row">
@@ -307,27 +322,27 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                     </Grid>
                 </Grid>
                 {(this.props.edit) ? (
-                <Dialog
-                    open={this.state.openDialog}
-                    onClose={this.handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">{"Etes-vous sûr de vouloir supprimer le livre"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Il ne sera plus possible de récupérer les données du livre une fois qu'il est supprimé
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Annuler
-                        </Button>
-                        <Button onClick={this.deleteBook} color="primary" autoFocus>
-                            Supprimer
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                    <Dialog
+                        open={this.state.openDialog}
+                        onClose={this.handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Etes-vous sûr de vouloir supprimer le livre"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Il ne sera plus possible de récupérer les données du livre une fois qu'il est supprimé
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">
+                                Annuler
+                            </Button>
+                            <Button onClick={this.deleteBook} color="primary" autoFocus>
+                                Supprimer
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 ) : <></>}
                 
                
