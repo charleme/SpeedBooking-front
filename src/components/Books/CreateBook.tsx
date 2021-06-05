@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { withRouter } from "react-router-dom";
 import IBook from "../../data_interface/IBook";
 import BookHelpers from "../../helpers/BookHelpers";
 import Form from "../Form/Form";
@@ -14,11 +15,17 @@ class CreateBook extends Component<ICreateBookProps, ICreateBookStates> {
     }
 
     onSubmitHandler =(book:IBook) =>{
-        BookHelpers.createBook(book).then(res => {
-            console.log("Modification réussite")
-        }).catch(error => {
-            console.log(error)
-        })
+        const userId = localStorage.getItem("id");
+        if(userId){
+            book.id_author = parseInt(userId);
+            BookHelpers.createBook(book).then(res => {
+                console.log("Création réussite");
+                this.props.history.push("/profile");
+            }).catch(error => {
+                console.log(error)
+            })
+        }
+        
     }
     
 
@@ -31,4 +38,4 @@ class CreateBook extends Component<ICreateBookProps, ICreateBookStates> {
     }
 }
 
-export default CreateBook;
+export default withRouter(CreateBook);

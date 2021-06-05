@@ -1,9 +1,9 @@
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField } from "@material-ui/core";
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import React, {Component} from "react";
 import { ITextField } from "../Form/IFormTextField";
 import { colors } from "../../default_color";
-import { IBookFormProps, IBookFormStates } from "./IBookForm";
+import { IBookFormProps, IBookFormStates, ILink } from "./IBookForm";
 import * as locales from '@material-ui/core/locale';
 import { genres } from "../../genres";
 import IGenre from "../../data_interface/IGenre";
@@ -11,38 +11,46 @@ import IGenre from "../../data_interface/IGenre";
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonIcon from '@material-ui/icons/Person';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import IBook from "../../data_interface/IBook";
 import BookHelpers from "../../helpers/BookHelpers";
 
 let textFields: ITextField[];
 let jsxTextFields:JSX.Element[];
 let deleteButton: JSX.Element = <></>;
-let cancelButton:JSX.Element = <></>;
-let jsxLanguageField: JSX.Element = <></>;
-
 class BookForm extends Component<IBookFormProps, IBookFormStates> {
     constructor(props: IBookFormProps) {
         super(props);
 
-        this.state = { titleBook:"", firstChapter: "", imageBook: "", language: "", links: {}, summaryBook:"", genres: [], openDialog:false };
+        this.state = { titleBook:"", firstChapter: "", imageBook: "", language: "", links: [], summaryBook:"", genres: [], openDialog:false };
 
-        if(this.props.book)
-            this.setState({ 
+        if(this.props.book){
+            const links:ILink[] = []
+            
+            const recordLinks = this.props.book.links
+            Object.keys(recordLinks).forEach(key => links.push({
+                name: key,
+                url: recordLinks[key]
+            }))
+
+
+
+            this.state = { 
                 titleBook: this.props.book.titleBook, 
                 firstChapter: this.props.book.firstChapter, 
                 imageBook: this.props.book.imageBook, 
                 language: this.props.book.language, 
-                links: this.props.book.links, 
+                links: links, 
                 summaryBook:this.props.book.titleBook, 
                 genres: [],
                 openDialog:false,
-            })
+            };
+        }
 
         this.changeTitleHandler.bind(this);
         this.changeImageBookHandler.bind(this);
         this.changeSummaryHandler.bind(this);
-        this.changeLanguageHandler.bind(this);
+        this.changeGenreHandler.bind(this);
         this.changeFirstChapterHandler.bind(this);
         this.changeLanguageHandler.bind(this);
         this.handleOpen.bind(this);
@@ -51,39 +59,22 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         this.submit.bind(this);
     }
 
-    componentDidMount = () => {
-        
-        if(this.props.book)
-            this.setState({ 
-                titleBook: this.props.book.titleBook, 
-                firstChapter: this.props.book.firstChapter, 
-                imageBook: this.props.book.imageBook, 
-                language: this.props.book.language, 
-                links: this.props.book.links, 
-                summaryBook:this.props.book.titleBook, 
-                genres: [],
-                openDialog:false,
-            })
-        
-        
-    }
-
     initFields(){
         if(this.props.book){
             textFields=[
                 {name: "title", label:"Titre", onChange:this.changeTitleHandler, default:this.props.book.titleBook},
-                {name: "imageLink", label:"Lien de l'image de couverture", onChange:this.changeTitleHandler, default:this.props.book.imageBook},
+                {name: "imageLink", label:"Lien de l'image de couverture", onChange:this.changeImageBookHandler, default:this.props.book.imageBook},
                 {name: "summaryBook", label: "Résumé", onChange:this.changeSummaryHandler, multiline: true, row: 5, default:this.props.book.summaryBook},
-                {name: "firstChapter", label: "Premier Chapitre", onChange:this.changeSummaryHandler, multiline: true, row: 20, default:this.props.book.firstChapter},
+                {name: "firstChapter", label: "Premier Chapitre", onChange:this.changeFirstChapterHandler, multiline: true, row: 20, default:this.props.book.firstChapter},
             ];
 
             
         }else{
             textFields=[
                 {name: "title", label:"Titre", onChange:this.changeTitleHandler},
-                {name: "imageLink", label:"Lien de l'image de couverture", onChange:this.changeTitleHandler},
+                {name: "imageLink", label:"Lien de l'image de couverture", onChange:this.changeImageBookHandler},
                 {name: "summaryBook", label: "Résumé", onChange:this.changeSummaryHandler, multiline: true, row: 5},
-                {name: "firstChapter", label: "Premier Chapitre", onChange:this.changeSummaryHandler, multiline: true, row: 20,},
+                {name: "firstChapter", label: "Premier Chapitre", onChange:this.changeFirstChapterHandler, multiline: true, row: 20,},
             ];
         }
 
@@ -143,8 +134,8 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         this.setState({firstChapter: event.target.value})
     }
 
-    changeLanguageHandler = (event:any) => {
-        this.setState({language: event.target.value})
+    changeLanguageHandler = (event:any, newValue:any) => {
+        this.setState({language: newValue})
     }
 
     handleOpen = () => {
@@ -158,8 +149,10 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
     deleteBook = () => {
         if(this.props.book && this.props.book.idBook){
             BookHelpers.deleteBook(this.props.book.idBook).then(res =>{
-                if(res.data.deleted)
-                    console.log("Suppression réussite")
+                if(res.data.deleted){
+                    console.log("Suppression réussite");
+                    this.props.history.push("/profile");
+                }
                 else{
                     console.error("Echecs de la suppression")
                 }
@@ -173,17 +166,60 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
     }
 
     submit = (e:any) => {
-        e.preventDefault();
-        const book:IBook = {
-            titleBook: this.state.titleBook,
-            imageBook: this.state.imageBook,
-            language: this.state.language,
-            links: this.state.links,
-            summaryBook: this.state.summaryBook,
-            firstChapter: this.state.firstChapter,
-        }
+        let links:Record<string, string> = {}
+        this.state.links.map((link) => {
+            links[link.name] = link.url;
+        })
+        let book:IBook;
 
+        e.preventDefault();
+        if(this.props.book){
+            book = this.props.book;
+
+            book.titleBook= this.state.titleBook;
+            book.imageBook= this.state.imageBook;
+            book.language= this.state.language;
+            book.links= links;
+            book.summaryBook= this.state.summaryBook;
+            book.firstChapter= this.state.firstChapter;
+        }else{
+            book = {
+                titleBook: this.state.titleBook,
+                imageBook: this.state.imageBook,
+                language: this.state.language,
+                links: links,
+                summaryBook: this.state.summaryBook,
+                firstChapter: this.state.firstChapter,
+            }
+        }
         this.props.onSubmitHandler(book);
+    }
+
+    deleteLink = (linkNumber: number) => {
+        const newLinks: ILink[] = this.state.links;
+        newLinks.splice(linkNumber, 1);
+        this.setState({links:newLinks})
+    }
+
+    addLink = () => {
+        const newLinks = this.state.links;
+        newLinks.push({
+            url:"",
+            name:""
+        });
+        this.setState({links:newLinks});
+    }
+
+    handleLinkName = (e:any, index:number) => {
+        const newLinks = this.state.links;
+        newLinks[index].name = e.target.value;
+        this.setState({links:newLinks});
+    }
+
+    handleLinkUrl = (e:any, index:number) => {
+        const newLinks = this.state.links;
+        newLinks[index].url = e.target.value;
+        this.setState({links:newLinks});
     }
 
     render() {
@@ -203,7 +239,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                             style={{ width: '100%' }}
                             renderInput={(params) => <TextField {...params} label="Langue" variant="outlined" />}
                             onChange={this.changeLanguageHandler}
-                            defaultValue={(this.props.book)? this.props.book.language : ""}
+                            value={this.state.language}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -225,6 +261,23 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                             )}
                         />
                     </Grid>
+                    {this.state.links.map((genre, index) => (
+                        <Grid item xs={12}>
+                            <Grid container direction="row">
+                                <Grid item xs={5}><TextField onChange={(e:any) => this.handleLinkName(e, index)} label="Nom du lien" name="marketName" value={genre.name} required/></Grid>
+                                <Grid item xs={5}><TextField onChange={(e:any) => this.handleLinkUrl(e, index)} label="Url" name="url" value={genre.url} required/></Grid>
+                                <Grid item xs>
+                                    <IconButton aria-label="delete" color="primary" onClick={() => this.deleteLink(index)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    ))}
+                    <Grid item xs={12}>
+                        <Button style={{color:"white", marginLeft:8}} variant="contained" color="primary" onClick={this.addLink}>Ajouter un lien</Button>
+                    </Grid>
+                    
                 </Grid>
                 <Grid style={{marginTop:"20px"}} container justify="space-around"  alignItems="center" spacing={0}>
                     <Grid style={{marginTop:"20px"}} container direction="row" justify="space-around" spacing={0}>
@@ -283,4 +336,4 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
     }
 }
 
-export default BookForm;
+export default withRouter(BookForm);
