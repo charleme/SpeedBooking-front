@@ -2,7 +2,7 @@ import React from "react";
 import axios, { AxiosResponse } from "axios";
 import IBook from "../data_interface/IBook";
 import { IDelete } from "../data_interface/IResponse";
-import { IGenreWithScore } from "../data_interface/IGenre";
+import IGenre, { IGenreWithScore } from "../data_interface/IGenre";
 
 const BOOK_API_BASE_URL = "http://localhost:8080/api/book";
 const ALL_BOOK = "/books"
@@ -29,8 +29,8 @@ class BookHelpers{
      * @param book book which will be created
      * @returns created book
      */
-    createBook(book:IBook): Promise<AxiosResponse<IBook>>{
-        return axios.post(BOOK_API_BASE_URL + ADD_BOOK, book);
+    createBook(book:IBook, genres: IGenre[]): Promise<AxiosResponse<IBook>>{
+        return axios.post(BOOK_API_BASE_URL + ADD_BOOK, {book, genres});
     }
 
     /**
@@ -49,8 +49,8 @@ class BookHelpers{
      * @param book book information (must contain idBook)
      * @returns updated book
      */
-    updateBook(book: IBook): Promise<AxiosResponse<IBook>>{
-        return axios.put(BOOK_API_BASE_URL + UPDATE_BOOK, book);
+    updateBook(book: IBook, genres: IGenre[]): Promise<AxiosResponse<IBook>>{
+        return axios.put(BOOK_API_BASE_URL + UPDATE_BOOK, {book, genres});
     }
 
     /**
@@ -86,12 +86,12 @@ class BookHelpers{
     }
 
     /**
-     * get all the genre associated to the book
+     * get all the genres associated to the book
      * 
      * @param bookId id of the book
      * @returns all genre associated to the book with the corresponding score
      */
-    genreWithScore(bookId:number):Promise<AxiosResponse<IGenreWithScore>>{
+    genresWithScore(bookId:number):Promise<AxiosResponse<IGenreWithScore[]>>{
         return axios.get(BOOK_API_BASE_URL + GENRE_WITH_SCORE + bookId);
     }
 

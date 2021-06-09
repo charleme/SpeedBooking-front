@@ -4,7 +4,8 @@ import IGenre from "../../data_interface/IGenre";
 
 export interface IBookFormProps  extends RouteComponentProps{
     book?: IBook;
-    onSubmitHandler: (book: IBook) => void;
+    genres?: IGenre[];
+    onSubmitHandler: (book: IBook, genres:IGenre[]) => void;
     edit: boolean;
 }
 

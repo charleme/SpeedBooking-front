@@ -7,8 +7,8 @@ import {IEditBookProps, IEditBookStates} from "./IEditBook"
 import { withRouter } from "react-router-dom";
 import Form from "../Form/Form";
 import BookHelpers from "../../helpers/BookHelpers";
+import IGenre from "../../data_interface/IGenre";
 
-let oldBook:IBook; 
 let currentUserId = localStorage.getItem("id");
 let bookId:number = 0
 /**
@@ -17,7 +17,7 @@ let bookId:number = 0
 class EditBook extends Component<IEditBookProps, IEditBookStates> {
     constructor(props: IEditBookProps) {
         super(props);
-        this.state = { book: undefined };
+        this.state = { book: undefined, genres: undefined };
 
         currentUserId = localStorage.getItem("id");
         const search = this.props.location.search;
@@ -36,13 +36,28 @@ class EditBook extends Component<IEditBookProps, IEditBookStates> {
     componentDidMount = () => {
         if(currentUserId)
             BookHelpers.isAuthor(bookId, parseInt(currentUserId)).then(response => {
-                if(response.data)
+                if(response.data){
                     BookHelpers.getBookById(bookId).then(response2 => {
-                        oldBook = response2.data 
+                        const oldBook = response2.data 
                         this.setState({book: oldBook})
                     }).catch(error => {
                         console.error("Aucun livre trouvé")
+                    });
+
+                    BookHelpers.genresWithScore(bookId).then(response2 => {
+                        const genresWithScore = response2.data;
+                        const bookGenres:IGenre[] = genresWithScore.map(genreWithScore => {
+                            return {
+                                idGenre: genreWithScore.idGenre,
+                                nameGenre: genreWithScore.nameGenre,
+                            }
+                        })
+
+                        this.setState({genres: bookGenres})    
+                    }).catch(error => {
+                        console.error("error genres book request");
                     })
+                }
                 else{
                     console.error("Le livre a modifier n'appartient pas à l'utilisateur connecté")
                     this.props.history.push("/createBook");
@@ -57,8 +72,8 @@ class EditBook extends Component<IEditBookProps, IEditBookStates> {
         }
     }
 
-    onSubmitHandler =(book:IBook) =>{
-        BookHelpers.updateBook(book).then(res => {
+    onSubmitHandler =(book:IBook, genres: IGenre[]) =>{
+        BookHelpers.updateBook(book, genres).then(res => {
             console.log("Modification Réussite")
             this.props.history.push("/profile")
         }).catch(error =>{
@@ -72,8 +87,8 @@ class EditBook extends Component<IEditBookProps, IEditBookStates> {
         return (
             <Form title="Modifier mon livre" width={60}>
                 {
-                    (this.state.book) ? (
-                    <BookForm onSubmitHandler={this.onSubmitHandler} edit={true} book={this.state.book}/>
+                    (this.state.book && this.state.genres) ? (
+                    <BookForm onSubmitHandler={this.onSubmitHandler} edit={true} book={this.state.book} genres={this.state.genres}/>
                         ): (
                             <CircularProgress />
                         )

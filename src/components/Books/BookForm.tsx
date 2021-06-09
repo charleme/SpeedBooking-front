@@ -24,7 +24,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
 
         this.state = { titleBook:"", firstChapter: "", imageBook: "", language: "", links: [], summaryBook:"", genres: [], openDialog:false };
 
-        if(this.props.book){
+        if(this.props.book && this.props.genres){
             const links:ILink[] = []
             
             const recordLinks = this.props.book.links
@@ -42,7 +42,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                 language: this.props.book.language, 
                 links: links, 
                 summaryBook:this.props.book.titleBook, 
-                genres: [],
+                genres: this.props.genres,
                 openDialog:false,
             };
         }
@@ -199,7 +199,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                 firstChapter: this.state.firstChapter,
             }
         }
-        this.props.onSubmitHandler(book);
+        this.props.onSubmitHandler(book, this.state.genres);
     }
 
     deleteLink = (linkNumber: number) => {
@@ -268,6 +268,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                                             placeholder="Book genres"
                                         />
                                     )}
+                                    value={this.state.genres}
                                 />
                             </Grid>
                         ) : (
@@ -296,6 +297,8 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                 </Grid>
                 <Grid style={{marginTop:"20px"}} container justify="space-around"  alignItems="center" spacing={0}>
                     <Grid style={{marginTop:"20px"}} container direction="row" justify="space-around" spacing={0}>
+                    {(this.props.edit) ? deleteButton : <></>}
+                        
                         <Button
                             style={{color:"white"}}
                             variant="contained"
@@ -307,7 +310,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                         >
                             Sauvegarder
                         </Button>
-                        {(this.props.edit) ? deleteButton : <></>}
+                        
                         
                         <Link to="/profile" style={{textDecoration:"none"}}>
                             <Button
