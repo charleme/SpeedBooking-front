@@ -41,8 +41,6 @@ const StyledListItem= withStyles({
 let jsxNavItem:JSX.Element[];
 
 
-
-
 class NavBar extends Component<INavBarProps, {}> {
     constructor(props: INavBarProps){
         super(props);

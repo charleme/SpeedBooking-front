@@ -3,6 +3,7 @@ import {Component} from "react"
 import { colors } from "../../default_color";
 import { INavBarProps } from "./INavBar";
 import NavBar from "./NavBar";
+import Counter from "../PresentationCounter/Counter";
 
 class PageWithNav extends Component<INavBarProps, any> {
     render() {
@@ -13,6 +14,9 @@ class PageWithNav extends Component<INavBarProps, any> {
                 </Grid>
                 <Grid item xs>
                     {this.props.children}
+                </Grid>
+                <Grid item>
+                    <Counter/>
                 </Grid>
             </Grid>
         );
