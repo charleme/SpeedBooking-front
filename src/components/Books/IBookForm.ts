@@ -19,6 +19,7 @@ export interface IBookFormStates{
     genres: IGenre[];
     openDialog:boolean;
     genreList?: IGenre[];
+    openSnackError:boolean;
 }
 
 export interface ILink{

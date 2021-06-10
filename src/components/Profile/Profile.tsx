@@ -98,24 +98,29 @@ class Profile extends Component<IProfileProps, IProfileStates> {
         currentUser.email = this.state.email;
         currentUser.languages = this.state.language;
         
-        UserHelpers.updateUser(currentUser).then(response => {
-            const newUser:IUser =  response.data
-            if(newUser.email === currentUser.email 
-                    && newUser.languages === currentUser.languages
-                    && newUser.username === currentUser.username
-                    && newUser.idUser === currentUser.idUser){
-                
-                console.log("Modification réussi");
-                this.setState({openSnackSuccess:true})
-            }
-            else{
-                console.error("Données mal mis à jour :")
+        if (currentUser.username != '' && currentUser.email != '' && currentUser.languages != '') {
+            UserHelpers.updateUser(currentUser).then(response => {
+                const newUser:IUser =  response.data
+                if(newUser.email === currentUser.email 
+                        && newUser.languages === currentUser.languages
+                        && newUser.username === currentUser.username
+                        && newUser.idUser === currentUser.idUser){
+                    
+                    console.log("Modification réussi");
+                    this.setState({openSnackSuccess:true})
+                }
+                else{
+                    console.error("Données mal mis à jour :")
+                    this.setState({openSnackError:true})
+                }
+            }).catch((error =>{
+                console.error("Echec mise à jour des données:")
                 this.setState({openSnackError:true})
-            }
-        }).catch((error =>{
-            console.error("Echec mise à jour des données:")
+            }))    
+        } else {
+            console.error("Le nom d'utilisateur, l'email ou les langues fournies sont incorrectes. Veuillez réessayer")
             this.setState({openSnackError:true})
-        }))
+        }
     }
 
     render() {
@@ -176,6 +181,11 @@ class Profile extends Component<IProfileProps, IProfileStates> {
                         <Snackbar open={this.state.openSnackSuccess} autoHideDuration={6000} onClose={this.handleSnackSuccessClose}>
                             <Alert onClose={this.handleSnackSuccessClose} severity="success">
                                 Mise à jour des données réussite
+                            </Alert>
+                        </Snackbar>
+                        <Snackbar open={this.state.openSnackError} autoHideDuration={6000} onClose={this.handleSnackErrorClose}>
+                            <Alert onClose={this.handleSnackErrorClose} severity="error">
+                                Le nom d'utilisateur, l'email ou les langues ne sont pas au bon format. Veuillez réessayer
                             </Alert>
                         </Snackbar>
                     </Grid>
