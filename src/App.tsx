@@ -30,7 +30,7 @@ function App() {
 	useEffect(() =>{
 		const currentUserId:number|null  = (localStorage.getItem("id") !== null) ? Number(localStorage.getItem("id")) : null ;
 		setUserConnected(currentUserId !== null); 
-	})
+	}, [])
 
   return (
     <div className="App">

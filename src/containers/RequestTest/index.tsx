@@ -1,15 +1,13 @@
 import { Button, Container, Typography } from '@material-ui/core';
-import React, {Component} from 'react';
-import IBook, {mockBook} from '../../data_interface/IBook';
-import IUser, {mockUser} from '../../data_interface/IUser';
-import BookHelpers from '../../helpers/BookHelpers';
+import {Component} from 'react';
 import UserHelpers from '../../helpers/UserHelpers';
+// import IBook, {mockBook} from '../../data_interface/IBook';
+// import IUser, {mockUser} from '../../data_interface/IUser';
+// import BookHelpers from '../../helpers/BookHelpers';
 
 export interface IState{
     requestResponse:  JSX.Element;
 }
-
-const request = UserHelpers.deleteUser;
 
 class RequestTest extends Component<any, IState> {
     constructor(props: any) {

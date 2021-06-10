@@ -118,7 +118,7 @@ class Profile extends Component<IProfileProps, IProfileStates> {
     }
 
     render() {
-        {this.setFieldData()}
+        this.setFieldData()
         return (
             <Form title="Mon Profil" width={50}>
                 <Grid container spacing={2}  alignItems="center">

@@ -5,10 +5,6 @@ import {IProps} from "./IBookWithProgress";
 
 
 export default class BookWithProgress extends React.Component<IProps, any> {
-    constructor(props: IProps) {
-        super(props);
-    }
-
     render() {
         const titleBook = this.props.titleBook;
         const titleBookFinal = (titleBook.length > 14 ? titleBook.substring(0,14).concat("...") : titleBook)

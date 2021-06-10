@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 
 const AUTHENTIFICATION_API_BASE_URL = "http://localhost:8080/api/connection"
 

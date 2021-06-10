@@ -175,6 +175,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         let links:Record<string, string> = {}
         this.state.links.map((link) => {
             links[link.name] = link.url;
+            return null;
         })
         let book:IBook;
 

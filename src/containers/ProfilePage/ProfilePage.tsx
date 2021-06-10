@@ -3,9 +3,6 @@ import PageWithNav from '../../components/NavBar/PageWithNav';
 import Profile from '../../components/Profile/Profile';
 
 class ProfilePage extends Component<any, any> {
-    constructor(props:any) {
-        super(props);
-    }
     render() {
         return (
             <PageWithNav selected={2}>
