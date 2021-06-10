@@ -104,11 +104,6 @@ export default class SignUp extends React.Component<any, IState>{
             let list = this.state.genres
 
             UserHelpers.createUser(user, list).then(res => {
-                if(res.data.idUser)
-                    localStorage.setItem("id",  res.data.idUser.toString())
-                else
-                    console.error("Utilisateur récupéré sans Id")
-                
                 this.props.history.push('/')
             })
         }else{

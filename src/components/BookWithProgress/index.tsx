@@ -19,7 +19,7 @@ export default class BookWithProgress extends React.Component<IProps, any> {
                   style={{height:"260px", width:"190px", margin: "0em 2em 1em 3em"}}>
                 <Grid item>
                     <Link to={bookHref} style={{textDecoration:"none"}}>
-                        <img src={imageBook} width="150px" height="225px" alt={titleBook}/>
+                        <img title={titleBook} src={imageBook} width="150px" height="225px" alt={titleBook}/>
                     </Link>
                 </Grid>
                 <Grid item>
@@ -30,7 +30,7 @@ export default class BookWithProgress extends React.Component<IProps, any> {
                       justify="flex-start"
                       alignItems="flex-start"
                       style={{width:"150px"}}>
-                    <div style={{fontWeight:"bold"}}>{titleBookFinal}</div>
+                    <div role="img" title={titleBook} style={{fontWeight:"bold"}}>{titleBookFinal}</div>
                 </Grid>
             </Grid>
         );

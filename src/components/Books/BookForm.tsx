@@ -186,7 +186,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         let book:IBook;
 
         e.preventDefault();
-        if (this.state.firstChapter !== '' && this.state.titleBook !== '' && this.state.imageBook !== '' && this.state.language !== '' && Object.keys(links).length !== 0 && this.state.summaryBook !== '' && this.state.genres === []) {
+        if (this.state.firstChapter !== '' && this.state.titleBook !== '' && this.state.imageBook !== '' && this.state.language !== '' && Object.keys(links).length !== 0 && this.state.summaryBook !== '' && this.state.genres !== []) {
             if(this.props.book){
                 book = this.props.book;
     

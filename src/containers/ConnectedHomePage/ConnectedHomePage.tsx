@@ -78,7 +78,16 @@ class ConnectedHomePage extends Component<any, IState> {
                 })
             })
         }
-        // console.log(this.state.listBook)
+        UserHelpers.getUserById(this.state.currentUserId).then(async res => {
+            if(res.data.genres !== null){
+                const genreList = res.data.genres
+                if(genreList !== undefined){
+                    const newGenre = Object.entries(genreList)
+                    this.setState({genres: newGenre})
+                }
+            }
+        })
+        console.log(this.state.listBook)
     }
 
     dislike() {
@@ -96,7 +105,16 @@ class ConnectedHomePage extends Component<any, IState> {
                 })
             })
         }
-        // console.log(this.state.listBook)
+        UserHelpers.getUserById(this.state.currentUserId).then(async res => {
+            if(res.data.genres !== null){
+                const genreList = res.data.genres
+                if(genreList !== undefined){
+                    const newGenre = Object.entries(genreList)
+                    this.setState({genres: newGenre})
+                }
+            }
+        })
+        console.log(this.state.listBook)
     }
 
     render() {
