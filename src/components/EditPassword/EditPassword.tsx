@@ -76,7 +76,7 @@ class EditPassword extends Component<IEditPasswordProps, IEditPasswordStates> {
                                 console.error(error);
                                 this.setState({
                                     errorSnackBar : true,
-                                    errorSnackBarMessage: "Impossible de modifier le mot de passe, veuillez le service de maintenance"
+                                    errorSnackBarMessage: "Impossible de modifier le mot de passe, veuillez contacter le service de maintenance"
                                 })
                             })
                         }else{
@@ -91,7 +91,7 @@ class EditPassword extends Component<IEditPasswordProps, IEditPasswordStates> {
                         console.error(error)
                         this.setState({
                             errorSnackBar : true,
-                            errorSnackBarMessage: "Impossible de modifier le mot de passe, veuillez le service de maintenance"
+                            errorSnackBarMessage: "Impossible de modifier le mot de passe, veuillez contacter le service de maintenance"
                         })
                     })
                     
