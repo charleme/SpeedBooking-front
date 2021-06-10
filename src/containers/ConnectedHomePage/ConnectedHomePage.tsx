@@ -53,8 +53,8 @@ class ConnectedHomePage extends Component<any, IState> {
             UserBookHelpers.createUserBook(this.state.currentUserId, this.state.listBook[this.state.currentBookId].idBook).then(res1 => {
                     UserHelpers.updateUserGenre(this.state.currentUserId, this.state.listBook[this.state.currentBookId].idBook).then(res2 => {
                                 BookHelpers.likeBook(this.state.listBook[this.state.currentBookId].idBook, this.state.currentUserId).then(res3 => {
-                                    this.setState({currentBookId: this.state.currentBookId+1})
-                                    console.log("Done ! Yay !")
+                                    this.setState({currentBookId: this.state.currentBookId+1});
+                                    console.log("Book liked");
                                 })
                     })
             })
@@ -67,13 +67,14 @@ class ConnectedHomePage extends Component<any, IState> {
                 })
             })
         }
-        console.log(this.state.listBook)
+        // console.log(this.state.listBook)
     }
 
     dislike() {
         if (this.state.listBook[this.state.currentBookId].idBook !== undefined) {
             BookHelpers.dislikeBook(this.state.listBook[this.state.currentBookId].idBook, this.state.currentUserId).then(res => {
                 this.setState({currentBookId: this.state.currentBookId + 1})
+                console.log("Book disliked");
             })
         }
         if(this.state.currentBookId === this.state.criticalSize){
@@ -82,10 +83,9 @@ class ConnectedHomePage extends Component<any, IState> {
                     listBook: [this.state.listBook[this.state.listBook.length-1], ...result.data],
                     currentBookId: 0
                 })
-                console.log(this.state.currentBookId)
             })
         }
-        console.log(this.state.listBook)
+        // console.log(this.state.listBook)
     }
 
     render() {
