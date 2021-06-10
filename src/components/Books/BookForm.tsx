@@ -1,5 +1,5 @@
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, TextField } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Snackbar, TextField } from "@material-ui/core";
+import { Alert, Autocomplete } from "@material-ui/lab";
 import {Component} from "react";
 import { ITextField } from "../Form/IFormTextField";
 import { IBookFormProps, IBookFormStates, ILink } from "./IBookForm";
@@ -21,7 +21,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
     constructor(props: IBookFormProps) {
         super(props);
 
-        this.state = { titleBook:"", firstChapter: "", imageBook: "", language: "", links: [], summaryBook:"", genres: [], openDialog:false };
+        this.state = { titleBook:"", firstChapter: "", imageBook: "", language: "", links: [], summaryBook:"", genres: [], openDialog:false, openSnackError:false, };
 
         if(this.props.book && this.props.genres){
             const links:ILink[] = []
@@ -43,6 +43,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                 summaryBook:this.props.book.titleBook, 
                 genres: this.props.genres,
                 openDialog:false,
+                openSnackError:false,
             };
         }
 
@@ -55,6 +56,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         this.handleOpen.bind(this);
         this.handleClose.bind(this);
         this.deleteBook.bind(this);
+        this.handleSnackErrorClose.bind(this);
         this.submit.bind(this);
     }
 
@@ -171,6 +173,10 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         this.setState({openDialog:false})
     }
 
+    handleSnackErrorClose = () => {
+        this.setState({openSnackError:false})
+    }    
+
     submit = (e:any) => {
         let links:Record<string, string> = {}
         this.state.links.map((link) => {
@@ -180,26 +186,31 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         let book:IBook;
 
         e.preventDefault();
-        if(this.props.book){
-            book = this.props.book;
-
-            book.titleBook= this.state.titleBook;
-            book.imageBook= this.state.imageBook;
-            book.language= this.state.language;
-            book.links= links;
-            book.summaryBook= this.state.summaryBook;
-            book.firstChapter= this.state.firstChapter;
-        }else{
-            book = {
-                titleBook: this.state.titleBook,
-                imageBook: this.state.imageBook,
-                language: this.state.language,
-                links: links,
-                summaryBook: this.state.summaryBook,
-                firstChapter: this.state.firstChapter,
+        if (this.state.firstChapter !== '' && this.state.titleBook !== '' && this.state.imageBook !== '' && this.state.language !== '' && Object.keys(links).length !== 0 && this.state.summaryBook !== '' && this.state.genres === []) {
+            if(this.props.book){
+                book = this.props.book;
+    
+                book.titleBook= this.state.titleBook;
+                book.imageBook= this.state.imageBook;
+                book.language= this.state.language;
+                book.links= links;
+                book.summaryBook= this.state.summaryBook;
+                book.firstChapter= this.state.firstChapter;
+            }else{
+                book = {
+                    titleBook: this.state.titleBook,
+                    imageBook: this.state.imageBook,
+                    language: this.state.language,
+                    links: links,
+                    summaryBook: this.state.summaryBook,
+                    firstChapter: this.state.firstChapter,
+                }
             }
+            this.props.onSubmitHandler(book, this.state.genres);
+        } else {
+            console.error("Mauvais format de données pour les champs remplis. Veuillez réessayer.")
+            this.setState({openSnackError:true})
         }
-        this.props.onSubmitHandler(book, this.state.genres);
     }
 
     deleteLink = (linkNumber: number) => {
@@ -240,6 +251,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                 
                     <Grid item xs={12}>
                         <Autocomplete
+                            aria-required
                             id="language"
                             options={Object.keys(locales)}
                             getOptionLabel={(key) => `${key.substring(0, 2)}-${key.substring(2, 4)}`}
@@ -323,6 +335,11 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                             </Button>
                         </Link>
                     </Grid>
+                    <Snackbar open={this.state.openSnackError} autoHideDuration={6000} onClose={this.handleSnackErrorClose}>
+                            <Alert onClose={this.handleSnackErrorClose} severity="error">
+                                Les données remplis dans les champs ne sont pas au bon format. Veuillez réessayer
+                            </Alert>
+                        </Snackbar>
                 </Grid>
                 {(this.props.edit) ? (
                     <Dialog
