@@ -104,10 +104,10 @@ class ConnectedHomePage extends Component<any, IState> {
         if (this.state.listBook[this.state.currentBookId] !== undefined) {
             page = <Grid
                     container
-                    direction="column"
+                    direction="row"
                     alignItems="center"
                     justify="space-evenly" style={{width:"100%"}}>
-                        <Grid item>
+                        <Grid item xs>
                             <Slide direction="right" in={true} mountOnEnter unmountOnExit>
                                 <Form title={"Selection"}>
                                     <BookCard bookImg={this.state.listBook[this.state.currentBookId].imageBook}
@@ -128,7 +128,7 @@ class ConnectedHomePage extends Component<any, IState> {
                                 </IconButton>
                             </Grid>
                         </Grid>
-                        <Grid item>
+                        <Grid item >
                             <Container maxWidth="xs" id="nav-bar" >
                                 <Grid
                                     container
