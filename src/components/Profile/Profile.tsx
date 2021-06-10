@@ -22,7 +22,6 @@ import IUser from "../../data_interface/IUser";
 
 let currentUser: IUser;
 let textFields: ITextField[] = [];
-let jsxTextFields:JSX.Element[];
 
 /**
  * @todo make submit

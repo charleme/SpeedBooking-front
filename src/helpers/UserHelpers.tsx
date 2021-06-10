@@ -1,4 +1,3 @@
-import React from "react";
 import axios, { AxiosResponse } from "axios";
 import IUser from "../data_interface/IUser";
 import { IDelete } from "../data_interface/IResponse";

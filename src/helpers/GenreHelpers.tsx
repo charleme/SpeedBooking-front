@@ -1,4 +1,3 @@
-import React from "react";
 import axios, { AxiosResponse } from "axios";
 import IGenre from "../data_interface/IGenre";
 

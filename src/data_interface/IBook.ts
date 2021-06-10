@@ -1,7 +1,3 @@
-import IUser from "./IUser";
-import IUserBook from "./IUserBook";
-import IGenreBook from "./IGenreBook";
-
 export default interface IBook{
     idBook?: number;
     titleBook: string;

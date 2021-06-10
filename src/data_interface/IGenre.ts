@@ -1,5 +1,3 @@
-import IGenreBook from "./IGenreBook";
-
 export default interface IGenre{
     idGenre?: number;
     nameGenre: string;

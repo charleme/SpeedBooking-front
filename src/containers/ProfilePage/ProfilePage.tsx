@@ -1,5 +1,4 @@
-import React, {Component} from 'react'
-import NavBar from '../../components/NavBar/NavBar';
+import {Component} from 'react'
 import PageWithNav from '../../components/NavBar/PageWithNav';
 import Profile from '../../components/Profile/Profile';
 

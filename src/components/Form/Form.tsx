@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, {Component} from "react";
+import {Component} from "react";
 import { colors } from "../../default_color";
 import { IFormProps, IFormStates } from "./IForm";
 

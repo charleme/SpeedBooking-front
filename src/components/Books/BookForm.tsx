@@ -1,8 +1,7 @@
 import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import React, {Component} from "react";
+import {Component} from "react";
 import { ITextField } from "../Form/IFormTextField";
-import { colors } from "../../default_color";
 import { IBookFormProps, IBookFormStates, ILink } from "./IBookForm";
 import * as locales from '@material-ui/core/locale';
 import IGenre from "../../data_interface/IGenre";

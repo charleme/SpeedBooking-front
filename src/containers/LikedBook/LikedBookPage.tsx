@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import {Component} from 'react'
 import PageWithNav from '../../components/NavBar/PageWithNav';
 import {CircularProgress, Grid} from "@material-ui/core";
 import UserHelpers from "../../helpers/UserHelpers";

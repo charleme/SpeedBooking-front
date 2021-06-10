@@ -1,7 +1,6 @@
 import { Button, Grid, Snackbar } from "@material-ui/core";
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import { colors } from "../../default_color";
 import Form from "../Form/Form";
 import FormTextField from "../Form/FormTextField";
 import { ITextField } from "../Form/IFormTextField";
@@ -10,7 +9,6 @@ import SaveIcon from '@material-ui/icons/Save';
 import PersonIcon from '@material-ui/icons/Person';
 import UserHelpers from "../../helpers/UserHelpers";
 import { Alert } from "@material-ui/lab";
-import { isConstructorDeclaration } from "typescript";
 
 let textFields: ITextField[] = [] 
 

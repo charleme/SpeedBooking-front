@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import {Component} from 'react'
 import PageWithNav from '../../components/NavBar/PageWithNav';
 import {Button, CircularProgress, Grid, TextField, Zoom} from "@material-ui/core";
 import SettingsIcon from '@material-ui/icons/Settings';

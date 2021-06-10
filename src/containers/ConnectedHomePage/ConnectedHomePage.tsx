@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import {Component} from "react"
 import PageWithNav from "../../components/NavBar/PageWithNav";
 import Form from "../../components/Form/Form";
 import IBook from "../../data_interface/IBook";

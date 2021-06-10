@@ -1,7 +1,6 @@
-import { CircularProgress, Grid } from "@material-ui/core";
-import React, {Component} from "react";
-import IBook, { mockBook } from "../../data_interface/IBook";
-import { colors } from "../../default_color";
+import { CircularProgress } from "@material-ui/core";
+import {Component} from "react";
+import IBook from "../../data_interface/IBook";
 import BookForm from "./BookForm";
 import {IEditBookProps, IEditBookStates} from "./IEditBook"
 import { withRouter } from "react-router-dom";

@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import {Component} from "react";
 import {IBookProps, IBookStates} from "./IBook"
 
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@material-ui/core";
 
 class Book extends Component<IBookProps, IBookStates> {
     constructor(props: IBookProps) {

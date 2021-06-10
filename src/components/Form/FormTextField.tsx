@@ -1,5 +1,5 @@
 import { Grid, TextField } from "@material-ui/core";
-import React, {Component} from "react";
+import {Component} from "react";
 import { IFormTextFieldProps, IFormTextFieldStates } from "./IFormTextField";
 
 class FormTextField extends Component<IFormTextFieldProps, IFormTextFieldStates> {
