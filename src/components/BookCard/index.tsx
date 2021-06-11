@@ -21,7 +21,7 @@ export class BookCard extends Component<IProps, any> {
             <div>
                 <img src={imageBook} width="150px" height="225px" alt="book first page"/>
                 <h3>{titleBook}</h3>
-                {genres.map(genre => <Chip size="medium" style={{margin: "0.4em"}} label={genre.nameGenre}/>)}
+                {genres.map(genre => <Chip key={genre.idGenre} size="medium" style={{margin: "0.4em"}} label={genre.nameGenre}/>)}
                 <div style={{overflow: "auto", height:"200px"}}>{summary}</div>
             </div>
         );

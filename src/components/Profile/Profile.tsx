@@ -128,7 +128,7 @@ class Profile extends Component<IProfileProps, IProfileStates> {
             <Form title="Mon Profil" width={50}>
                 <Grid container spacing={2}  alignItems="center">
                     {textFields.map(field=>(
-                        <FormTextField fieldInformation={field} />
+                        <FormTextField key={field.name} fieldInformation={field} />
                     ))}
                     <Grid item xs={12}>
                     <Autocomplete

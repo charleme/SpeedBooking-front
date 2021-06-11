@@ -39,7 +39,7 @@ class ReadBook extends Component<IReadBookProps, IReadBookStates> {
                 })}
                 <Grid container direction="row" justify="space-around">
                     {parsedLinks.map(link=> (
-                    <Grid item style={{marginTop: 20}}>
+                    <Grid key={link.name} item style={{marginTop: 20}}>
                         <Link href={link.url}>
                             <Button variant="contained" color="primary" style={{color:"white"}}>
                                 {link.name}

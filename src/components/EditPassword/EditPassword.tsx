@@ -121,7 +121,7 @@ class EditPassword extends Component<IEditPasswordProps, IEditPasswordStates> {
             <Form title="Modifier mon mot de passe">
                 <Grid container spacing={2}  alignItems="center">
                 {textFields.map(fieldInformation =>(
-                    <FormTextField fieldInformation={fieldInformation}/>
+                    <FormTextField key={fieldInformation.label} fieldInformation={fieldInformation}/>
                 ))}
                 <Grid style={{marginTop:"20px"}} container justify="space-around"  alignItems="center" spacing={0}>
                     <Grid container direction="row" justify="space-around" spacing={0}>

@@ -87,7 +87,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
         }
 
         jsxTextFields = textFields.map(field =>
-            <Grid item xs={12}>
+            <Grid key={field.name} item xs={12}>
                 <TextField
                     onChange={field.onChange}
                     autoComplete={(field.autocomplete !== undefined) ? field.autocomplete : ""}
@@ -290,7 +290,7 @@ class BookForm extends Component<IBookFormProps, IBookFormStates> {
                     
                     
                     {this.state.links.map((genre, index) => (
-                        <Grid item xs={12}>
+                        <Grid key={index} item xs={12}>
                             <Grid container direction="row">
                                 <Grid item xs={5}><TextField onChange={(e:any) => this.handleLinkName(e, index)} label="Nom du lien" name="marketName" value={genre.name} required/></Grid>
                                 <Grid item xs={5}><TextField onChange={(e:any) => this.handleLinkUrl(e, index)} label="Url" name="url" value={genre.url} required/></Grid>

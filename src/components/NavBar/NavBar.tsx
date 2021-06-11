@@ -46,7 +46,7 @@ class NavBar extends Component<INavBarProps, {}> {
         super(props);
         
         jsxNavItem = navItems.map((item)=>
-            <Link to={item.link} style={{color:"white", textDecoration:"none"}}>
+            <Link key={item.id} to={item.link} style={{color:"white", textDecoration:"none"}}>
                 <StyledListItem
                     className="item" 
                     button 

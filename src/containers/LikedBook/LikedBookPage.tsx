@@ -34,7 +34,7 @@ export default class LikedBookPage extends Component<any, IStates> {
         const library = (listLenght > 0
             ?
             this.state.listBook.map((book)=>
-                <BookWithProgress titleBook={book['titleBook']} imageBook={book['imageBook']} progress={book['progress']} idBook={book['idBook']}/>
+                <BookWithProgress key={book.idBook} titleBook={book['titleBook']} imageBook={book['imageBook']} progress={book['progress']} idBook={book['idBook']}/>
             )
             :
             <Grid container

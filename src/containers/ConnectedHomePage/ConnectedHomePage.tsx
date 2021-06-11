@@ -51,7 +51,6 @@ class ConnectedHomePage extends Component<any, IState> {
                 if (this.state.listBook[this.state.currentBookId] !== undefined) {
                     BookHelpers.genresWithScore(this.state.listBook[this.state.currentBookId].idBook).then(async r => {
                         await this.setState({genresBook: r.data})
-                        console.log(this.state.genresBook)
                     })
                 }
             })
@@ -62,9 +61,9 @@ class ConnectedHomePage extends Component<any, IState> {
                         const newGenre = Object.entries(genreList)
                         this.setState({genres: newGenre})
                     }
+                    console.log(this.state.genres)
                 }
             })
-
         }
         this.setState({isLoading: false})
     }
@@ -171,6 +170,7 @@ class ConnectedHomePage extends Component<any, IState> {
                                                 direction="row"
                                                 alignItems="center"
                                                 justify="center"
+                                                key={genre[3]}
                                                 style={{width:"100%", backgroundColor:"#c3afcf", margin: "0.40em"}}>
                                                 <div>{(genre[0].substring(0, 4) === "Homo" ? "Homosexualité": genre[0])} : {genre[1]}</div>
                                             </Grid>

@@ -69,40 +69,44 @@ class SettingsPage extends Component<any, IState> {
                 </Button>
             </Grid>
 
-        const genreSelector = (this.state.genreList) ? (<Zoom in={this.state.showGenreSelector}>
-            <Grid container xs={12}
-                                    direction="column"
-                                    justify="center"
-                                    alignItems="center"
-                                    style={{padding:"1%"}}>
-                                <Autocomplete
-                                    multiple
-                                    size="small"
-                                    id="tags-outlined"
-                                    options={this.state.genreList}
-                                    getOptionLabel={(option) => option.nameGenre}
-                                    filterSelectedOptions
-                                    style={{width:"450px"}}
-                                    onChange={this.changeGenreHandler}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            variant="outlined"
-                                            label="Nouveaux genres"
-                                            placeholder="Nouveaux genres"
-                                        />
-                                    )}
-                                />
-                                <br/>
-                                <Button variant="contained"
-                                        color="primary"
-                                        size="large"
-                                        style={{color:colors.white}}
-                                        onClick={this.confirm}>
-                                    Confirm
-                                </Button>
-            </Grid>
-        </Zoom>) : (<CircularProgress color="primary"/>)
+        const genreSelector = (this.state.genreList) ? (
+            <Zoom in={this.state.showGenreSelector}>
+                <Grid container xs={12}
+                                        direction="column"
+                                        justify="center"
+                                        alignItems="center"
+                                        style={{padding:"1%"}}>
+                                    <Autocomplete
+                                        multiple
+                                        size="small"
+                                        id="tags-outlined"
+                                        options={this.state.genreList}
+                                        getOptionLabel={(option) => option.nameGenre}
+                                        filterSelectedOptions
+                                        style={{width:"450px"}}
+                                        onChange={this.changeGenreHandler}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                variant="outlined"
+                                                label="Nouveaux genres"
+                                                placeholder="Nouveaux genres"
+                                            />
+                                        )}
+                                    />
+                                    <br/>
+                                    <Button variant="contained"
+                                            color="primary"
+                                            size="large"
+                                            style={{color:colors.white}}
+                                            onClick={this.confirm}>
+                                        Confirm
+                                    </Button>
+                </Grid>
+            </Zoom>)
+        : (
+            <CircularProgress color="primary"/>
+        )
 
         const resetArea = ( !this.state.showGenreSelector ? button : genreSelector)
         return (
