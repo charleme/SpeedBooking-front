@@ -45,12 +45,15 @@ class SettingsPage extends Component<any, IState> {
 
     confirm = (e: any) => {
         e.preventDefault()
-        let userId = 4
-        let list = this.state.newGenres
-        UserHelpers.resetUserGenres(userId, list).then(res => {
-            console.log("Done !")
-            // this.props.history.push('/profile')
-        })
+        let userId = localStorage.getItem("id");
+        if(userId){
+            let list = this.state.newGenres
+            UserHelpers.resetUserGenres(parseInt(userId), list).then(res => {
+                console.log("Done !")
+                this.props.history.push('/')
+            })
+        }
+        
     }
 
     render() {
