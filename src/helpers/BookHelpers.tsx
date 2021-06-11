@@ -90,7 +90,7 @@ class BookHelpers{
      * @param bookId id of the book
      * @returns all genre associated to the book with the corresponding score
      */
-    genresWithScore(bookId:number):Promise<AxiosResponse<IGenreWithScore[]>>{
+    genresWithScore(bookId:number | undefined):Promise<AxiosResponse<IGenreWithScore[]>>{
         return axios.get(BOOK_API_BASE_URL + GENRE_WITH_SCORE + bookId);
     }
 

@@ -11,6 +11,7 @@ import UserBookHelpers from "../../helpers/UserBookHelpers";
 import BookHelpers from "../../helpers/BookHelpers";
 import {BookCard} from "../../components/BookCard";
 import "./Counter.scss";
+import GenreBookHelpers from "../../helpers/GenreBookHelpers";
 
 interface IState {
     isLoading: boolean,
@@ -18,7 +19,8 @@ interface IState {
     criticalSize: number,
     currentBookId: number,
     currentUserId: number,
-    genres?: any
+    genres?: any,
+    genresBook: any,
 }
 
 class ConnectedHomePage extends Component<any, IState> {
@@ -30,7 +32,8 @@ class ConnectedHomePage extends Component<any, IState> {
             criticalSize: 0,
             currentBookId: 0,
             currentUserId: Number(localStorage.getItem("id")),
-            genres: []
+            genres: [],
+            genresBook: []
         }
 
         this.like = this.like.bind(this)
@@ -40,11 +43,17 @@ class ConnectedHomePage extends Component<any, IState> {
     componentDidMount() {
         this.setState({isLoading: true})
         if (this.state.currentUserId !== null){
-            UserHelpers.getTL(this.state.currentUserId).then(res => {
-                this.setState({
+            UserHelpers.getTL(this.state.currentUserId).then(async res => {
+                await this.setState({
                         listBook: this.state.listBook.concat(res.data),
                         criticalSize: res.data.length - 2
                     })
+                if (this.state.listBook[this.state.currentBookId] !== undefined) {
+                    BookHelpers.genresWithScore(this.state.listBook[this.state.currentBookId].idBook).then(async r => {
+                        await this.setState({genresBook: r.data})
+                        console.log(this.state.genresBook)
+                    })
+                }
             })
             UserHelpers.getUserById(this.state.currentUserId).then(async res => {
                 if(res.data.genres !== null){
@@ -55,6 +64,7 @@ class ConnectedHomePage extends Component<any, IState> {
                     }
                 }
             })
+
         }
         this.setState({isLoading: false})
     }
@@ -130,7 +140,8 @@ class ConnectedHomePage extends Component<any, IState> {
                                 <Form title={"Selection"}>
                                     <BookCard bookImg={this.state.listBook[this.state.currentBookId].imageBook}
                                               bookName={this.state.listBook[this.state.currentBookId].titleBook}
-                                              bookSummary={this.state.listBook[this.state.currentBookId].summaryBook}/>
+                                              bookSummary={this.state.listBook[this.state.currentBookId].summaryBook}
+                                              bookGenres={this.state.genresBook}/>
                                 </Form>
                             </Slide>
                             <Grid xs={12}
