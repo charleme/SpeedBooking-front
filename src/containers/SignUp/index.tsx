@@ -94,7 +94,7 @@ export default class SignUp extends React.Component<any, IState>{
 
     createUser = (e: any) => {
         e.preventDefault();
-        if(this.state.password === this.state.confirm_password && this.state.username !== '' && this.state.email !== '' && this.state.password !== '' && this.state.languages !== '' && this.state.languages !== null){
+        if(this.state.password === this.state.confirm_password && this.state.username !== '' && this.state.email !== '' && this.state.password.length >= 8 && this.state.languages !== '' && this.state.languages !== null){
             let user: IUser = {
                 username: this.state.username,
                 email: this.state.email,
